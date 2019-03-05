@@ -1,83 +1,154 @@
-body{
+@font-face{
+font-family: "ethnocentric rg";
+src: url("../font/ethnocentric rg.ttf") format("opentype");
+
+}
+
+body, .content::before{
+    background:linear-gradient(rgba(0,0,0,0.2) 100%, transparent), url(../img/img111111.jpg);
+    background-size: 100vw 100vh;
+}
+body {
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
+    
 }
-.her{
-    padding: 0.6em;
-    font-size: 110%;
+
+.logo{
+    font-family: 'Ethnocentric Rg';
+    font-size:30px;
+    color: white;
+    letter-spacing: 3px;
+}
+
+.hh{
+    font-family: helvetica;
+    color: white;
+    position: relative;
+    top: 180px;
+    left: 140px;
+    font-size: 94px;
+    width: 30%;
+}
+span{
+    background:transparent;
+    background-size: contain;
+    background-position: -150px;
     display: flex;
     justify-content: space-between;
-    background-color: white;
-    font-family: comic sans ms;
+    height: auto;
+}
+
+.header{
+    padding: 0.6em;
+    font-size: 10%;
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent;
     font-weight: bold;
     color: orangered;
     position: sticky;
     top: 0;
 }
 
-.head{
+
+img{
     padding: 5px;
     width: 200px;
     height: 15px;
 }
 
-.span{
-    display: flex;
-    justify-content: space-between;
-    height: auto;
+.menu a{
+  
+    text-decoration: none;
+    color: white;
+    margin: 0px 10px;
+    padding:0.7em 0.9em;
+    background-color:green;
+    font-family: helvetical;
+    font-family: helvetical;
+    border-radius: 10px;
+    border: 0;
+    opacity: 0.95;
+    position: relative;
+    top: 14px;
+    font-size: 20px;
 }
-.logo{
-    width: 250px;
-    height: 200px;
+
+.menu1 a{
+    text-decoration: none;
+    color: white;
+    margin: 0px 10px;
+    padding:1em 2em;
+    background-color:green;
+    font-family: helvetical;
+    border-radius: 10px;
+    font-size: 20px;
+    position: relative;
+    top: 370px;
+    left: -120px;
+    height:43px; 
     
 }
-p{
-    font-family: comic sans ms;
-    font-weight: bold;
-    font-size:60px;
-    color: orangered;
+
+.menu1{
+    position: relative;
+    top: 25px;
+    left: 550px;
+    
 }
 
-.image{
-    height: 600px;
-    width: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.icon{
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    margin-bottom: -90px;
+    color: white;
+    font-size: 1.8em
+    
 }
-.motto{
-    position: absolute;
-    top:400px;
-    left: 350px;
-    font-weight: lighter;
-}
-span{
-    font-size: 30px;
+
+h1{
     font-family: "Courier New", Courier, monospace;
-    font-style: italic;
-    line-height: 1.4em;;
-    font-weight: lighter;
+    position: relative;
+    font-family: 1.2em;
+    top: 200px;
+    left: -200px;
+   
 }
 
-
-.modal-content{
+.content{
     display: block;
     position: relative;
     width: 300px;
-    height: auto;
-    top: 10px;
-    left: auto;
-    background: #fff;
+    height: 460px;
+    left: 390px;
+    top: -40px;
+/*    background: #fff;*/
     margin:50px auto;
     padding: 30px;
+    border: 3px solid white;//rgba(0,0,0,0.5);
     border-radius: 0 30px 0 30px;
-    box-shadow: 3px 3px 20px 2px  #ccc;
 }
 
+.content::before{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    margin: -5px;
+    top:0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 0 30px 0 30px;
+    filter: blur(5px);
+}
 h2{
     text-align: center;
+    color: white;
 }
 
 label{
@@ -86,7 +157,7 @@ label{
     position: relative;
     top: -20px;
     left: 0px;
-    color: #999;
+    color: white;
     font-family: 'Helvetica', sans-serif;
     font-size: 16px;
     z-index: 1;
@@ -116,15 +187,60 @@ input:focus, input:valid {
 input:focus + label, input:valid + label{
     top: -40px;
     font-size: 13px;
-    color: green;
+    color: white;
     font-weight: normal;
 }
 
+.content a{
+    font-family: 'helvetica';
+    font-size: 13px;
+    color: green;
+    text-decoration: none;
+}
 .btn {
+    margin-top: 10px;
     padding:15px 20px;
     background-color:orangered;
     border: 0;
     opacity: 0.75;
     color: white;
     width: 100%;
+}
+
+.forget{
+    margin-top: 5px;
+    color: white;
+    cursor: pointer;
+    text-decoration: underline
+}
+
+.footer{
+    font-size: 20px;
+    color: green;
+    position: absolute;
+    bottom: 3px;
+    width:100%;
+    text-align:center;
+    padding:0px;
+    margin-top:10px;
+    margin-bottom:0;
+}
+
+
+@media only screen and (max-width:900px){
+
+    .icon, .menu1, h1, .hh {
+        display: none;
+    }
+    
+    .content{
+        top: 1px;
+        left: 7px
+    }
+    
+    .logo{
+        font-size: 25px;
+    }
+    
+   
 }
