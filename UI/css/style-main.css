@@ -1,13 +1,10 @@
 body {
     width: 100%;
-    height: 100%;
+    height: 1666660%;
     padding: 0;
     margin: 0;
-/*
-    background-image: linear-gradient(90deg, #fb3 11px, transparent 0), linear-gradient(90deg, #ab4 23px, transparent 0), linear-gradient(90deg, #655 41px, transparent 0);
-    background-size: 41px 100px, 61px 100%, 83px 100%;
-*/
-    background-color: #312B41;
+    background-color: #d7e3f0;
+    overflow: hidden;
 }
 
 .header{
@@ -15,12 +12,12 @@ body {
     font-size: 110%;
     display: flex;
     justify-content: space-between;
-    background-color: white;
     font-family: helvetical;
     font-weight: lighter;
     top: 0;
     height: 1.5em;
-    background-color: ghostwhite
+    background-color:#ecf2fe;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 .img{
@@ -38,6 +35,15 @@ body {
     -webkit-font-smoothing: antialiased;
   }
 
+.icon::after {
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
 .inputs span::before{
     font-weight: 900; 
     content: "\f002";
@@ -45,9 +51,8 @@ body {
     padding: 20px 0px 20px 20px;
     transition: color 0.3s linear;
     position: absolute;
-    left: -20px;
-    top: -13px;
-/*    left: 10px;*/
+    left: -24px;
+    top: -17px;
 }
 
 .inputs span {
@@ -64,8 +69,6 @@ body {
     position: relative;
 }
 
-
-
 #right{
 /*    padding: 0.8em 0.2em;*/
     display: grid;
@@ -73,6 +76,7 @@ body {
     grid-gap:2px;
     margin-left: 0px;
     padding: 0 0px;
+    color: darkslategray;
 }
 
 #right span{
@@ -89,6 +93,7 @@ body {
     align-self: center;
     text-align: center;
 }
+
 .userName:hover{
     background-color: aqua;
 }
@@ -102,18 +107,20 @@ body {
 .signout:hover{
     background-color: aqua;
 }
+
 .search-bar{
-    padding: 0.1em;
+    border: none;
+    padding: 0.3em;
+    padding-left: 1em;
     margin-left: 1em;
     margin-right: 1em;
+    margin-top: -1em;
     height: 2em; 
     width: 25vw;
-    border: 1px solid rgba(0,0,0,.5);
     border-radius: 5px;
     outline: none;
     text-decoration: none;
-    background: rgba(100,100,150,.05);
-    box-shadow: 0px 4px 10px -4px rgba(0,0,0,.5);
+    background: white;
 }
 
 .imgwrap{
@@ -122,6 +129,7 @@ body {
     padding: 0px 0;
     margin-right: 20px;
 }
+
 .profile{
     width: 32px;
     height: 32px;
@@ -132,22 +140,23 @@ body {
 }
 
 #mail {
-    grid-template-columns: repeat(10, auto);
-    grid-auto-rows: minmax(150px,auto);
-    grid-gap: 0px;
     display: grid;
+    grid-template-columns: repeat(10, auto);
+    grid-auto-rows: minmax(1,auto);
+    position: relative;
+    grid-gap: 0px;
     max-width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 4px;
+    height: 450px;
 }
 
 #menu-bar{
     grid-column: 1/2;
     grid-row: 1/5;
 /*    border-right: 1px solid black;*/
-    background: ;
-    width: 190px;
-    color: black;
+    background: #444c63;
+    width: 200px;
 }
 
 ul {
@@ -162,36 +171,33 @@ hr {
 .bnt{
     margin: 20px 10px;
     padding: 0.8em;
-    background-color:rgba(255,69,0,0.7);
+    background-color:#01caa0;
     border: 0;
     color: white;
     width: 90%;
     border-radius: 5px;
     font-weight: bold;
-    font-size: 1em;
+    font-family: Times New Roman;
+    font-size: 0.9em;
 }
 
 .bnt::before{
-    content: '\f067';
+    content: '\';
     position: absolute;
     left: 19px;
 }
 
 .group{
-     margin: 10px;
-    padding:15px 10px;
-    background-color:rgba(255,69,0,0.7);
     border: 0;
     color: white;
-    width: 90%;
     border-radius: 5px;
     font-weight: bold;
-    font-size: 1.1em;}
+    font-size: 1em;}
 
 .group::before{
     content: '\f0c0';
     position: absolute;
-    left: 11px;
+    left: 20px;
 }
 
 .contact::before{
@@ -202,16 +208,15 @@ hr {
 
 li{
     display: block;
-    font-family: Arial,sans-sarif;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     letter-spacing: .2px;
     line-height: px;
     padding: 10px;
     width: px;
     padding-left: 50px;
     transition: all 0.3s linear;
-    cursor: pointer;
-    color: #fff;
+    cursor: pointer;   
+    color: white;
 }
 
 li > span::before{
@@ -224,10 +229,8 @@ li > span::before{
 }
 
 li:hover{
-    background-color:rgba(239, 143, 78, 0.32);;
+    background-color:rgba(40,43,50);;
     opacity: 0.95;
-    color: black;
-    font-size: 1.1em;
 }
 
 #menu-bar li {
@@ -236,6 +239,12 @@ li:hover{
 
 .inbox::before{
     content: '\f01c';
+    position: absolute;
+    left: 20px;
+}
+
+.unread::before{
+    content: '\f2b6';
     position: absolute;
     left: 20px;
 }
@@ -259,27 +268,55 @@ li:hover{
 }
 
 .focus{
-    text-align: left;
+    text-align: center;
     padding: 10px;
-    height: 30px;
-    color: black;
-    font-weight:bold;
-    font-size:1.4em;
+    height: 0px;
+    color: gray;
+    font-size:1.2em;
     font-family:'Times new roman';
-    border: 1px solid gray ;
-    background-color: rgba(255, 255, 255, 0.9)
+}
+
+
+.section{
+    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: repeat (1, 1fr);
+    height: 100%;
+    position: relative; 
+}
+
+.left-bar{
+    grid-column: 1/5;
+    grid-row: 1/1;
+    background-color: #f6fafe;
+    border-right: 2px solid rgba(0,0,0,0.2);
+}
+
+.right-bar{
+    grid-column:5/11 ;
+    grid-row: 1/1;
+    background-color: #f6fafe;
+}
+
+#bar{
+    grid-column: 3/11;
+    grid-row: 1/1;
+    height: 2em;
 }
 
 #nav-bar{
-    grid-column: 2/6;
-    grid-row: 1/5;
+    grid-column: 3/5;
+    grid-row: 2/5;
     background-color: inherit;
-    border-radius: 5px;
     padding: 0px 2px;
     overflow-y: scroll;
     height: 620px;
     background-clip: content-box;
     margin-top: 2px;
+    background-color: #d7e3f0;
+    display: 
+    
 }
 
 #nav-bar::-webkit-scrollbar{
@@ -289,7 +326,7 @@ li:hover{
 
 #nav-bar::-webkit-scrollbar-thumb{
     border-radius: 50px;
-    background-color: green;
+    background-color:#6f8ba9 ;
 }
 
 #nav-bar::-webkit-scrollbar-track{
@@ -300,39 +337,33 @@ li:hover{
     background-color: white;
     display: grid;
     grid-template-columns: repeat(10,1fr);
-    grid-template-rows: repeat (3. 1fr);
+    grid-template-rows: repeat (3, 1fr);
     grid-gap: 0px;
-    font-family: "lucida-sans", sans-serif;
-    color: #333;
+    font-family: "Times new roman";
+    color: #7c95b0;
     rgba(0,0,0,0.5);
-    border-left: 4px solid purple;
+    border-left: 4px solid red;height: auto;
 /*    background-clip: content-box;*/
-    margin-top: 1px;
+    margin-top: 2px;
     position: relative;
-    padding-right: 15px; 
+    padding-right: 15px;
+    padding-bottom: 5px;
 }
 
 .show:hover::before{
     content: "\f2ed";
     position: absolute;
     right: 10px;
-    top: 59px;
+    top: 48px;
     font-size: 1.5em;
     color: black;
+    cursor: pointer;
 }
 
 .show:hover{
-    background-color:rgba(239, 143, 78, 0.16);
-    border-left: 2px solid green;
-}
-
-.in{
-    grid-column: 1/2;
-    grid-row: 1/2;
-    height:15px;
-    width: 20px;
-    position: absolute;
-    top: 3.5px;
+    background-color:#f2f6fa;
+    border-left: 4px solid green;
+    cursor: pointer
 }
 
 .name{
@@ -340,17 +371,17 @@ li:hover{
     grid-row: 1/2;
     font-weight: bold;
     align-self: center;
-    padding: -1px 15px;
+    padding: 5px 15px;
     font-size: 1em;
     position: absolute;
-    left: 0.7em;
-    top: 2px;    
+    left: 1.0em;
+    top: 2px; 
 }
 
 .name::before{
-    content: '\f005';
+    content: '\f2b6';
     position: absolute;
-    left: -1.8em;
+    left: -1.6em;
     font-weight: lighter;
     color: black;
 }
@@ -365,32 +396,33 @@ li:hover{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-weight: bolder;
+    
     margin: 0;
-    padding: 5px 58px;
+    padding: 2px 58px;
 }
 
 .display{
-    grid-column: 1/11;
+    grid-column: 1/10;
     grid-row: 3/4;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0;
-    padding: 5px 58px;
+    padding: 1px 58px;
     padding-right: .5em;
-    font-size: 0.9em;
     display: block;
     display: -webkit-box;
-    max-width: 100%;
-    height: 2.7em;
-    line-height: 1;
-    -webkit-line-clamp:3;
+    width: 90%;
+    height: 1.8.9em;
+    line-height: 01;
+    -webkit-line-clamp:2;
     -webkit-box-orient:vertical;
+    text-align: left;
+    
 }
 
 .show:hover .display{
-    max-width: 70%;
-    text-align: justify
+    width: 90%;
+    text-align:
 }
 
 .time {
@@ -402,23 +434,48 @@ li:hover{
 }
 
 .message{
-    grid-column: 6/11;
-    grid-row: 1/5;
-    background-color:white;//rgba(9, 0, 0, 0.1);
-    padding: 30px;
-    color:gray;
-    margin-right: 2px;
-    margin-left: 2px;
+    grid-column: 6/9;
+    grid-row: 2/4;
+    background-color: inherit;
+    padding: 0px 2px;
+    overflow-y: scroll;
+    height: 620px;
+    background-clip: content-box;
     margin-top: 2px;
-    position: relative;
-    background: linear-gradient(-150deg, transparent 1.5em, white 0);
-    overflow:hidden;
 }
 
-.message::before {
+
+.message::-webkit-scrollbar{
+    width: 10px;
+    
+}
+
+.message::-webkit-scrollbar-thumb{
+    border-radius: 20px;
+    background-color: #6f8ba9;
+    
+}
+
+.message::-webkit-scrollbar-track{
+width: 25px;
+}
+
+.container{
+    background-color: white;
+    box-shadow: 0px 10px 20px -9px  rgba(0,0,0, 0.5);
+    width: 87%;
+    height: auto;
+    margin-left: 20px;
+    margin-top: 30px;
+    padding: 30px;
+    border-radius: 0 20px 0 20px;
+}
+
+/*
+.container::before {
     content: '';
     position: absolute;
-    top: 0; right: 0;
+    top: 26px; right: 0;
     background: linear-gradient(to left bottom, transparent 50%, transparent 0, white) 100% 0 no-repeat;
     width: 1.73em;
     height: 3em;
@@ -427,6 +484,7 @@ li:hover{
     border-bottom-left-radius: inherit;
     box-shadow: -.2em .2em .3em -.1em rgba(0,0,0,.15);
 }
+*/
 
 .shower{
     display: grid;
@@ -434,28 +492,44 @@ li:hover{
     grid-template-rows: repeat (3, minmax(auto));
     border-bottom: 1px solid grey;
     padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .shower p{
     margin: 0;
 }
 
-.icon::after {
-    font-family: "Font Awesome 5 Free";
-    display: inline-block;
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-  }
-
-.shower::before{
-    content:'\f3e5';
-
+.receiver::before{
+    content: "\f2ed";
+    position: absolute;
+    right: 10px;
+    font-size: 1.5em;
+    font-weight: lighter;
 }
 
-.shower::after{
-    content: '\f122'
+.receiver:hover::before{
+    color: black;
+    cursor: pointer;
+}
+
+.receiver::after{
+    content: "\f14d";
+    position: absolute;
+    right: 45px;
+    font-size: 1.5em;
+    color: black;
+    cursor: pointer;
+}
+
+.to::after{
+    content: "\f14d";
+    position: absolute;
+    right: 85px;
+    top: px;
+    font-size: 1.5em;
+    color: black;
+    transform: rotateY(180deg);
+    cursor: pointer;
 }
 
 .shower .imgs{
@@ -492,10 +566,11 @@ li:hover{
 }
 
 .to{
-    grid-column: 2/3;
+    grid-column: 2/11;
     grid-row:3/4;
     font-style: italic;
-    font-size: 0.9em;    
+    font-size: 0.9em; 
+    position: relative;
 }
 
 .from{
@@ -513,10 +588,11 @@ li:hover{
 }
 
 .receiver{
-    grid-column: 3/4;
+    grid-column: 3/11;
     grid-row:3/4;
     font-style: italic;
     font-size: 0.9em;
+    position: relative;
 }
 
 .main-message{
@@ -527,7 +603,6 @@ li:hover{
 p{
     text-align: justify
 }
-
 
 .bg-modal{
     
@@ -548,6 +623,7 @@ p{
     left: 25%;
     background-color:white;
 }
+
 .modal-content{
     display: grid;
     grid-template-columns: repeat(10,minmax(auto));
@@ -577,12 +653,11 @@ p{
     width: 99%;
 }
 
-
 .userName{
 
 }
 
-
+/*
 label{
     background: none;
     display: block;
@@ -595,21 +670,23 @@ label{
     z-index: 1;
     transition: all 0.3s ease;
 }
+*/
 
 .put{
     display: block;
     position: relative;
     border: 0;
     background: none;
-    width:100%;
+    width:87%;
     height:30px;
     font-family:Helvetica;
     font-size:16px;
     padding-top: 2px;
     border-bottom: 1px solid #ddd;
     font-weight: lighter;
-    z-index: 2;  
-    
+    z-index: 2;
+    margin-left: 0px;
+    padding-left: 90px;
 }
 
 .put:focus, .put:valid {
@@ -623,6 +700,7 @@ label{
     color: green;
     font-weight: normal;
 }
+
 .new-message{
     grid-column: 1/11;
     grid-row:3/10;
@@ -637,7 +715,10 @@ textarea{
     border: 0;
     overflow-y: scroll;
     padding-left: 15px;
+    overflow-x: hidden;
+    white-space: wrap;
 }
+
 .action{
     grid-column: 1/11;
     grid-row:10/11;
@@ -679,6 +760,108 @@ textarea{
     font-size: 0.8em;
 }
 
+.profile-modal{
+    
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+    position:absolute;
+    top: 0;
+    display: none;
+}
+
+.profile-content{
+    width:300px;
+    height:400px;
+    margin:50px auto 0;
+    position: absolute;
+    top: 3%;
+    right: 2%;
+    background-color:white;
+}
+
+.profile-content{
+    display: grid;
+    grid-template-columns: repeat(10,minmax(auto));
+    grid-template-rows: repeat (3, minmax(auto));
+    border-bottom: 3px solid grey;
+    
+}
+
+.profile-action{
+    grid-column: 1/11;
+    grid-row:10/11;
+    align-self: center;
+    position: relative;
+    left: 60px;
+}
+.profile-group{
+    margin: 0px 10px;
+    padding: 0.4em;
+    background-color:rgba(0,0,255,0.7);
+    border: 0;
+    color: white;
+    width: 50%;
+    font-weight:700;
+    font-size: 0.8em;
+}
+
+.profile-show{
+    display: block;
+    position: relative;
+}
+
+.profile-show .imgs{
+    grid-column: 1/2;
+    grid-row: 1/4;
+    position:absolute;
+    height: 100px;
+    width: 100px;
+    top:-19px;
+    left: 105px;
+    border-radius: 100%;
+    border: 1px solid grey;
+}
+
+.profile-name{
+    position: absolute;
+    top: 190px;
+    left: 105px
+}
+
+.profile-email{
+    position: absolute;
+    top: 210px;
+    left: 90px;
+    font-style: italic;
+}
+
+.profile-number{
+    position: absolute;
+    top: 230px;
+    left: 130px
+}
+
+.profile-action{
+    grid-column: 1/11;
+    grid-row:10/11;
+    align-self: center;
+    position: relative;
+    left: 60px;
+}
+
+.upload-image{
+    position: absolute;
+    margin: 0px 10px;
+    padding: 0.4em;
+    background-color:rgba(0,0,255,0.7);
+    border: 0;
+    color: white;
+    width: 50%;
+    font-weight:700;
+    font-size: 0.8em;
+    top: -12px
+}
 .group-modal{
     
     width: 100%;
@@ -698,6 +881,7 @@ textarea{
     left: 20%;
     background-color:white;
 }
+
 .group-content{
     display: grid;
     grid-template-columns: repeat(10,minmax(auto));
@@ -743,6 +927,7 @@ textarea{
     left: -20%;
     background-color:white;
 }
+
 .contact-content{
     display: grid;
     grid-template-columns: repeat(10,minmax(auto));
@@ -774,16 +959,86 @@ textarea{
     position: absolute;
     top: 5px;
 }
-
-.fowardbtn{
-    float: right;
-    margin: 10px; 
-    padding: 10px 15px;
-    padding-right: 30px;
+#toggle {
+ display: none;
 }
-.replybtn{
-    float: right;
-     margin: 10px;
-    padding: 10px 15px;
-    padding-right: 30px;
+
+label {
+    margin: 0 40px 0 0;
+    font-size: 36px;
+    line-height: 70px;
+    display: none;
+}
+
+@media only screen and (max-width:1100px){
+    .container{
+    margin-left: 2px;
+    margin-top: 20px;
+}
+    
+    .m-time{
+    grid-column: 3/11;
+    font-size: 0.75em;
+    position: relative;
+    right:-130px;
+    top: 9px;
+}
+    .receiver::before{
+    font-size: 1.2em;
+}
+
+
+.receiver::after{
+    right: 32px;
+    font-size: 1.2em;
+}
+    .to::after{
+    right: 59px;
+    top: px;
+    font-size: 1.2em;
+}
+}
+@media only screen and (max-width:900px){
+
+    .message{
+        display: none;
+    }
+}
+@media only screen and (max-width:600px){
+    label{
+        display:block;
+        position: relative;
+        top: -20px;
+        font-weight: bold;
+        
+    }  
+    
+    #menu-bar,.message,.right-bar,#right,.search-bar{
+    display: none;    
+    }
+    
+    .left-bar{
+        width: 250%;
+    }
+    
+    .inputs span::before{
+        left: 15px;
+   
+}
+    .img{
+    padding: 5px;
+    width: 45vw;
+    height: 0.9em;
+}
+    
+    #toggle:checked + #mail{
+        display: none;
+        
+    
+    
+    
+    }
+    
+    
+    
 }

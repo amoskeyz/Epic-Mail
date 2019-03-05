@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
 	<title>Home Page</title>
     <link rel="stylesheet" type="text/css" href="css/style-main.css">
@@ -8,6 +9,8 @@
 </head>
 <body>
     <div class="header">
+        <label for="toggle">&#9776;</label>
+            <input type='checkbox'id='toggle'>
         <img class="img" src="img/img.png">
         <div class = "inputs">
             <input type="text" class="search-bar" placeholder="Search">
@@ -24,31 +27,49 @@
         </div>
         
     </div>
-<!--    <hr>-->
     <div id="mail">
         <div id="menu-bar">
             
-            <button class="bnt icon">New Mail</button>
+            <button class="bnt icon"> COMPOSE NEW MAIL</button>
             <ul>
                 <li class="icon inbox">Inbox</li>
                 <li class="icon draft">Draft</li>
                 <li  class="icon sent">Sent</li>
                 <li class="icon trash">Trash</li>
-                <li class="icon contact"> Starred</li>
+                <li class="icon unread"> Unread</li>
             </ul>
             <hr>
-             <button class="icon group icon">Create Group</button>
             <ul>
-                <li class="icon contact"> Group</li>
-                <li class="icon contact"> Contact</li>
+                <li class="icon group"> Group</li>
             </ul>
         </div>
         
+        <div id='bar'>
+            <div class="section">
+                <div class='left-bar'>
+                    <div class="focus"> Inbox </div>
+                </div>
+                <div class="right-bar">
+                </div>
+            </div>
+        </div>
+        
         <div id="nav-bar">
-            <div class="focus"> INBOX </div>
             
             <div class="show icon">
-                <input type="checkbox" class="in">
+            
+                <span class="name icon">Amos</span>
+                <span class="time">12:00am</span>
+                <p class='subjet'>H-bridge</p>
+                <p class='display'>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </div>
+            
+
+            <div class="show icon">
+            
                 <span class="name icon">Amos</span>
                 <span class="time">12:00am</span>
                 <p class='subjet'>H-bridge</p>
@@ -59,7 +80,7 @@
             </div>
             
             <div class="show icon">
-                <input type="checkbox" class="in">
+                
                 <span class="name icon">Amos</span>
                 <span class="time">12:00am</span>
                 <p class='subjet'>H-bridge</p>
@@ -70,7 +91,7 @@
             </div>
             
             <div class="show icon">
-                <input type="checkbox" class="in">
+                
                 <span class="name icon">Amos</span>
                 <span class="time">12:00am</span>
                 <p class='subjet'>H-bridge</p>
@@ -81,7 +102,7 @@
             </div>
             
             <div class="show icon">
-                <input type="checkbox" class="in">
+                
                 <span class="name icon">Amos</span>
                 <span class="time">12:00am</span>
                 <p class='subjet'>H-bridge</p>
@@ -92,7 +113,7 @@
             </div>
             
             <div class="show icon">
-                <input type="checkbox" class="in">
+                
                 <span class="name icon">Amos</span>
                 <span class="time">12:00am</span>
                 <p class='subjet'>H-bridge</p>
@@ -103,7 +124,7 @@
             </div>
             
             <div class="show icon">
-                <input type="checkbox" class="in">
+                
                 <span class="name icon">Amos</span>
                 <span class="time">12:00am</span>
                 <p class='subjet'>H-bridge</p>
@@ -114,18 +135,7 @@
             </div>
             
             <div class="show icon">
-                <input type="checkbox" class="in">
-                <span class="name icon">Amos</span>
-                <span class="time">12:00am</span>
-                <p class='subjet'>H-bridge</p>
-                <p class='display'>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-            </div>
-            
-            <div class="show icon">
-                <input type="checkbox" class="in">
+                
                 <span class="name icon">Amos</span>
                 <span class="time">12:00am</span>
                 <p class='subjet'>H-bridge</p>
@@ -138,17 +148,50 @@
         </div>
         
         <div class = "message">
+            <div class='container'>
             <div class="shower icon">
                 <img class="imgs" src="img/IMG.jpg">
                 <p class='m-subject'> Inverter Design</p>
                 <div class="user-detail">
-                    <p class='sender'> Amos</p>
+                    <p class='sender icon'> Amos</p>
+                    <p class="sender-email">engr.amos@yahoo.com</p>
+                </div>    
+                
+                <p class='to icon'>To:</p>
+                <p class='from'>From:</p>
+                <p class="receiver icon">globalsms@yahoo.com</p>
+                <p class='m-time'>4 Dec 2012 at 14:04</p>
+                </div>
+                
+
+                <div class='main-message'>
+                    <p> Dear Lorem</p>
+                    
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisipariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    
+            
+                    <p>Thanks</p>
+            </div>
+            </div>
+            
+            <div class='container'>
+            <div class="shower icon">
+                <img class="imgs" src="img/IMG.jpg">
+                <p class='m-subject'> Inverter Design</p>
+                <div class="user-detail">
+                    <p class='sender icon'> Amos</p>
                     <p class="sender-email">engr.amos@yahoo.com</p>
                 </div>    
                 
                 <p class='to'>To:</p>
                 <p class='from'>From:</p>
-                <p class="receiver">globalsms@yahoo.com</p>
+                <p class="receiver icon">globalsms@yahoo.com</p>
                 <p class='m-time'>4 Dec 2012 at 14:04</p>
                 </div>
                 
@@ -168,12 +211,41 @@
             
                     <p>Thanks</p>
             </div>
-            <hr>
-            <button class = "replybtn">Reply</button>
-            <button class = "fowardbtn">forward</button>
-        </div>
+            </div>
         
-        
+            <div class='container'>
+            <div class="shower icon">
+                <img class="imgs" src="img/IMG.jpg">
+                <p class='m-subject'> Inverter Design</p>
+                <div class="user-detail">
+                    <p class='sender'> Amos</p>
+                    <p class="sender-email">engr.amos@yahoo.com</p>
+                </div>    
+                
+                <p class='to'>To:</p>
+                <p class='from'>From:</p>
+                <p class="receiver">globalsms@yahoo.com</p>
+                <p class='m-time'>4 Dec 2012 at 14:04</p>
+                </div>
+                
+                <div class='main-message'>
+                    <p> Dear Lorem</p>
+                    
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisipariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            
+                    <p>Thanks</p>
+            </div>
+            
+            </div>
+
     </div>
     
      <div class="bg-modal">
@@ -196,6 +268,24 @@
             </div>
         </div>
     
+        <div class="profile-modal">
+            <div class="profile-content">
+                <div class="bar">Profile</div>
+                <div class="new-group">
+                    <div class="profile-show">
+                        <img class="imgs" src="img/IMG.jpg"></div>
+                   <span class="profile-name">Amos Oruaroghene</span>
+                    <span class="profile-email">engr.amos@yahoo.com</span>
+                    <span class="profile-number">0813996785</span>
+                    </div>
+                
+                <div class="profile-action">
+                    <button class="upload-image">Upload Image</button>
+                </div>
+                </div>
+                
+            </div>
+            
          <div class="group-modal">
             <div class="group-content">
                 <div class="bar">Create Group</div>
@@ -234,7 +324,8 @@
                 <div class="contact-group">
                     <div class="c-name">Amos</div>
                     <div class="c-email">engr.amos@yahoo.com</div>
-                </div><div class="contact-group">
+                </div>
+                    <div class="contact-group">
                     <div class="c-name">Amos</div>
                     <div class="c-email">engr.amos@yahoo.com</div>
                 </div>
@@ -244,5 +335,6 @@
                 </div>
             </div>
         </div>
+    </div>
 </body>
 </html>
