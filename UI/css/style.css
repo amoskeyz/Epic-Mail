@@ -1,36 +1,31 @@
 @font-face{
 font-family: "ethnocentric rg";
 src: url("../font/ethnocentric rg.ttf") format("opentype");
-
 }
 
-body, .content::before{
-    background:linear-gradient(rgba(0,0,0,0.2) 100%, transparent), url(../img/img111111.jpg);
-    background-size: 100vw 100vh;
-}
 body {
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
-    
+    background-color:rgba(102,85,85,0.5);
 }
 
 .logo{
     font-family: 'Ethnocentric Rg';
-    font-size:30px;
+    font-size:26px;
     color: white;
     letter-spacing: 3px;
+    margin-left:4px;
 }
 
 .hh{
+    text-align:center;
     font-family: helvetica;
     color: white;
-    position: relative;
-    top: 180px;
-    left: 140px;
-    font-size: 94px;
-    width: 30%;
+    font-size: 79px;
+    padding:0.1em;
+    margin: 0px;
 }
 span{
     background:transparent;
@@ -48,9 +43,6 @@ span{
     justify-content: space-between;
     background-color: transparent;
     font-weight: bold;
-    color: orangered;
-    position: sticky;
-    top: 0;
 }
 
 
@@ -60,77 +52,78 @@ img{
     height: 15px;
 }
 
-.menu a{
-  
-    text-decoration: none;
-    color: white;
-    margin: 0px 10px;
-    padding:0.7em 0.9em;
-    background-color:green;
-    font-family: helvetical;
-    font-family: helvetical;
-    border-radius: 10px;
-    border: 0;
-    opacity: 0.95;
-    position: relative;
-    top: 14px;
-    font-size: 20px;
+.menu {
+    display: flex;
+    flex-direction: row;
 }
 
-.menu1 a{
+.menu > a{
     text-decoration: none;
     color: white;
     margin: 0px 10px;
-    padding:1em 2em;
-    background-color:green;
-    font-family: helvetical;
+    padding:0.5em 0.9em;
+    font-weight:lighter;
     border-radius: 10px;
+    border-bottom: 2px solid orangered;
+    opacity: 0.95;
     font-size: 20px;
-    position: relative;
-    top: 370px;
-    left: -120px;
-    height:43px; 
-    
 }
 
 .menu1{
-    position: relative;
-    top: 25px;
-    left: 550px;
-    
+    display: flex;
 }
 
+.menu1 > a{
+    text-decoration: none;
+    color: white;
+    margin: 10px auto;
+    padding:0.5em 0.9em;
+    font-family: helvetical;
+    border-radius: 5px;
+    font-size: 20px;
+    height:20px; 
+    border:1px solid white;
+    background-color:orangered;
+}
 
 .icon{
     text-align: center;
-    width: 50%;
-    margin: auto;
-    margin-bottom: -90px;
+    width: 100%;
     color: white;
-    font-size: 1.8em
-    
+    font-size: 20px;
+    font-weight:bolder;
+    margin-bottom:px;
+}
+
+.flexcontent{
+    display: flex;
+    justify-content: space-between;
 }
 
 h1{
     font-family: "Courier New", Courier, monospace;
-    position: relative;
     font-family: 1.2em;
-    top: 200px;
-    left: -200px;
-   
+}
+
+body, .content::before{
+    background:url(../img/container.jpg) 100% /cover fixed;
+}
+
+.modal-content{
+    width:1200px;
+    height:570px;
+    margin:60.5px auto;
+    background-color: rgba(0,0,0,0.3);
 }
 
 .content{
-    display: block;
     position: relative;
     width: 300px;
-    height: 460px;
-    left: 390px;
-    top: -40px;
-/*    background: #fff;*/
-    margin:50px auto;
+    height: 450px;
+    top: -110px;
+    margin:100px 50px 50px 0px;
     padding: 30px;
-    border: 3px solid white;//rgba(0,0,0,0.5);
+    border: 3px solid white;
     border-radius: 0 30px 0 30px;
 }
 
@@ -146,9 +139,15 @@ h1{
     border-radius: 0 30px 0 30px;
     filter: blur(5px);
 }
+
+.flex{
+     margin:100px 0px 50px 50px;
+}
+
 h2{
     text-align: center;
     color: white;
+    font-size: 20px;
 }
 
 label{
@@ -198,20 +197,18 @@ input:focus + label, input:valid + label{
     text-decoration: none;
 }
 .btn {
-    margin-top: 10px;
-    padding:15px 20px;
-    background-color:orangered;
-    border: 0;
-    opacity: 0.75;
-    color: white;
-    width: 100%;
+    
 }
 
 .forget{
-    margin-top: 5px;
+    margin-top: 7px;
     color: white;
     cursor: pointer;
-    text-decoration: underline
+    text-decoration: underline;
+    font-size:14px;
+    position:relative;
+    top:25px;
+        
 }
 
 .footer{
@@ -226,21 +223,141 @@ input:focus + label, input:valid + label{
     margin-bottom:0;
 }
 
+.bntt > a{
+    margin-top: 0px;
+    padding:16px 120px;
+    background-color:orangered;
+    border: 0;
+    opacity: 0.75;
+    color: white;
+    width: 120%;
+    cursor:pointer;
+    position:relative;
+    top:6px;
+    left:6px;
+    
+}
 
-@media only screen and (max-width:900px){
 
-    .icon, .menu1, h1, .hh {
-        display: none;
+@media only screen and (max-width:1180px){
+    
+    .modal-content{
+        margin: 35px 0px;
+        width: 100%;
+    }
+}
+@media only screen and (max-width:900px){    
+    
+    .modal-content{
+        margin: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    .logo{
+        margin:10px;
+        font-size:20px;
+    }
+    
+    .login{
+        margin:18px;
+        font-size:16px;
     }
     
     .content{
-        top: 1px;
-        left: 7px
+        margin:150px 25px 75px 20px;
+        width:300px;
+    }
+    
+    .bntt > a{
+        white-space: nowrap;
+    }
+    
+    .icon{
+        font-size:25px
+    }
+}
+
+
+
+@media only screen and (max-width:800px){
+
+    
+    .flex{
+        margin:10px 0px 5px 0px;
+    }
+    
+    .flexcontent{
+        flex-direction: column;
     }
     
     .logo{
-        font-size: 25px;
+        margin:10px;
+        font-size:20px;
     }
     
-   
+    .login{
+        margin:14px;
+        font-size:16px;
+    }
+    
+    .menu > a{
+        margin-top:8px;
+        font-size:16px;
+    }
+    
+    
+    .content{
+        margin: 150px auto;
+        width:55%;
+    }
+    
+    .bntt > a{
+        padding:10px 80px;
+        margin-left:9px
+    }
+
+}
+
+@media only screen and (max-width:390px){
+
+    
+    .flex{
+        margin:10px 0px 5px 0px;
+    }
+    
+    .flexcontent{
+        flex-direction: column;
+    }
+    
+    .logo{
+        margin:10px;
+        font-size:10px;
+    }
+    
+    .login{
+        margin:10px;
+        font-size:14px;
+        font-weight:bold;
+    }
+    
+    .menu > a{
+        margin-top:1px;
+        font-size:14px;
+    }
+    
+    .icon{
+        font-size:17px;
+    }
+    
+    
+    
+    .content{
+        margin-left:35px;
+        width:60%;
+    }
+    
+    .bntt > a{
+        margin-left:1px
+    }
+
 }
