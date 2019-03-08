@@ -22,6 +22,30 @@ class epicMail {
       data: { Token: token({ id: userObj.id }) },
     });
   }
+
+  static signinUser(req, res) {
+    const {
+      email, password,
+    } = req.body;
+    let isExist = false;
+    let id;
+    users.forEach((user) => {
+      if (user.email === email && user.password === password) {
+        isExist = true;
+        ({ id } = user);
+      }
+    });
+    if (isExist) {
+      return res.status(200).json({
+        status: 200,
+        data: { Token: token({ id }) },
+      });
+    }
+    return res.status(400).json({
+      status: 400,
+      error: 'Invalid User',
+    });
+  }
 }
 
 export default epicMail;

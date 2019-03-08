@@ -7,5 +7,6 @@ const router = express();
 router.get('/', Controller.welcome);
 
 router.post('/auth/signup', Validator.validateSignup, Controller.signupUser);
+router.post('/auth/signin', Validator.validateSignin, Controller.signinUser);
 
 export default router;
