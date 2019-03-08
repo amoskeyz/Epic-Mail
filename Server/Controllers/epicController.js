@@ -1,5 +1,6 @@
 import token from '../Helper/token';
 import users from '../Models/user';
+import messages from '../Models/messages';
 
 class epicMail {
   static welcome(req, res) {
@@ -44,6 +45,13 @@ class epicMail {
     return res.status(400).json({
       status: 400,
       error: 'Invalid User',
+    });
+  }
+
+  static getallreceivedmessages(req, res) {
+    return res.status(200).json({
+      status: 200,
+      data: messages,
     });
   }
 }
