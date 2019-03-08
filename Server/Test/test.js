@@ -72,4 +72,16 @@ describe('Epic Test', () => {
         });
     });
   });
+
+    describe('/message', () => {
+      it('should get all received emails for a user', (done) => {
+        chai.request(app)
+          .get('/api/v1/messages')
+          .end((err, res) => {
+            expect(res.body.data.length).to.not.equal(null);
+            expect(res.statusCode).to.equal(200);
+            done();
+          });
+      });
+    });
 });
