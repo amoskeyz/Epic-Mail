@@ -73,15 +73,28 @@ describe('Epic Test', () => {
     });
   });
 
-    describe('/message', () => {
-      it('should get all received emails for a user', (done) => {
-        chai.request(app)
-          .get('/api/v1/messages')
-          .end((err, res) => {
-            expect(res.body.data.length).to.not.equal(null);
-            expect(res.statusCode).to.equal(200);
-            done();
-          });
-      });
+  describe('/message', () => {
+    it('should get all received emails for a user', (done) => {
+      chai.request(app)
+        .get('/api/v1/messages')
+        .end((err, res) => {
+          expect(res.body.data.length).to.not.equal(null);
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
     });
+  });
+
+  describe('/message', () => {
+    it('should fetch all unread received emails', (done) => {
+      chai.request(app)
+        .get('/api/v1/messages/unread')
+        .end((err, res) => {
+          expect(res.body.data.some(message => message.status === 'read')).to.equal(false);
+          expect(res.body.data.some(message => message.status === 'unread')).to.equal(true);
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+  });
 });
