@@ -54,6 +54,14 @@ class epicMail {
       data: messages,
     });
   }
+
+  static getallunreadmessages(req, res) {
+    const array = messages.filter(message => message.status === 'unread');
+    return res.status(200).json({
+      status: 200,
+      data: array,
+    });
+  }
 }
 
 export default epicMail;
