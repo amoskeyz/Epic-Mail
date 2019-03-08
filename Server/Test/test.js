@@ -40,4 +40,36 @@ describe('Epic Test', () => {
         });
     });
   });
+
+  describe('POST/auth/signin', () => {
+    it('should not signin a user on incorrect input', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send(users[2])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(400);
+          done();
+        });
+    });
+
+    it('should not signin a user that does not exist', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send(users[3])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(400);
+          done();
+        });
+    });
+
+    it('should signin a user that exist with correct input', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send(users[4])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+  });
 });

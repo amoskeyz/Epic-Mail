@@ -7,6 +7,14 @@ const users = [
       "password": 'doitnow',
       'phoneNumber': '090878985',
     },
+
+    {
+        'id': 2,
+        'email': 'popo@epicmail.com',
+        'firstname': 'Bolu',
+        'lastname': 'Baba',
+        'password' : 'uche123',
+      }
   ];
   
   export default users;

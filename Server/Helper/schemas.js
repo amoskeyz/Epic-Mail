@@ -9,6 +9,12 @@ const schema = {
       password: Joi.required(),
       phoneNumber: Joi.required(),
     }),
+
+  Loginschema:
+    Joi.object().keys({
+      email: Joi.string().email().lowercase().required(),
+      password: Joi.required(),
+    }),
 };
 
 export default schema;
