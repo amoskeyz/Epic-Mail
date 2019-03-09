@@ -62,6 +62,14 @@ class epicMail {
       data: array,
     });
   }
+
+  static getallsentmessages(req, res) {
+    const array = messages.filter(message => message.status === 'sent');
+    return res.status(200).json({
+      status: 200,
+      data: array,
+    });
+  }
 }
 
 export default epicMail;

@@ -40,7 +40,7 @@ const messages = [
         "status" : "unread",
     },
     {
-        "id" : 5,
+        "id" : 6,
         "createdon" : "Fri Mar 08 2019 19:37:03 GMT+0100 (West Africa Standard Time)",
         "subject" : "H-bridge" ,
         "message" : "I have seen the lords goodness he's mercies and companions" ,
@@ -50,7 +50,7 @@ const messages = [
         "status" : "read",
     },
     {
-        "id" : 6,
+        "id" : 7,
         "createdon" : "Fri Mar 08 2019 19:37:03 GMT+0100 (West Africa Standard Time)",
         "subject" : "H-bridge" ,
         "message" : "I have seen the lords goodness he's mercies and companions" ,
@@ -58,6 +58,26 @@ const messages = [
         "receiverId" : 1,
         "parentMessageId" : 1,
         "status" : "unread",
+    },
+    {
+        "id" : 8,
+        "createdon" : "Fri Mar 08 2019 19:37:03 GMT+0100 (West Africa Standard Time)",
+        "subject" : "H-bridge" ,
+        "message" : "I have seen the lords goodness he's mercies and companions" ,
+        "senderId" : 1,
+        "receiverId" : 1,
+        "parentMessageId" : 1,
+        "status" : "sent",
+    },
+    {
+        "id" : 9,
+        "createdon" : "Fri Mar 08 2019 19:37:03 GMT+0100 (West Africa Standard Time)",
+        "subject" : "H-bridge",
+        "message" : "I have seen the lords goodness he's mercies and companions" ,
+        "senderId" : 1,
+        "receiverId" : 1,
+        "parentMessageId" : 1,
+        "status" : "sent",
     },
 ]
 
