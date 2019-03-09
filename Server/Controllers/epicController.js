@@ -70,6 +70,21 @@ class epicMail {
       data: array,
     });
   }
+
+  static getaspecificmessage(req, res) {
+    const messageObj = messages.find(message => message.id
+    === Number(req.params.id));
+    if (messageObj) {
+      return res.status(200).json({
+        status: 200,
+        data: messageObj,
+      });
+    }
+    return res.status(400).json({
+      status: 400,
+      error: 'message not found',
+    });
+  }
 }
 
 export default epicMail;

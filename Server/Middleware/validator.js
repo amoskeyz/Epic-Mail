@@ -41,6 +41,18 @@ class Validate {
       return next();
     });
   }
+
+  static validateid(req, res, next) {
+    joi.validate({ id: req.params.id }, schema.idschema, (err) => {
+      if (err) {
+        return res.status(400).json({
+          status: 400,
+          error: err,
+        });
+      }
+      return next();
+    });
+  }
 }
 
 export default Validate;

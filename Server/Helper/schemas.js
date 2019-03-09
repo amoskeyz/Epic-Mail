@@ -15,6 +15,11 @@ const schema = {
       email: Joi.string().email().lowercase().required(),
       password: Joi.required(),
     }),
+
+  idschema:
+    Joi.object().keys({
+      id: Joi.number().integer().required(),
+    }),
 };
 
 export default schema;

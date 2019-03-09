@@ -73,7 +73,7 @@ describe('Epic Test', () => {
     });
   });
 
-  describe('/message', () => {
+  describe('GET/message', () => {
     it('should fetch all received emails for a user', (done) => {
       chai.request(app)
         .get('/api/v1/messages')
@@ -85,7 +85,7 @@ describe('Epic Test', () => {
     });
   });
 
-  describe('/message', () => {
+  describe('GET/message/unread', () => {
     it('should fetch all unread received emails for a user', (done) => {
       chai.request(app)
         .get('/api/v1/messages/unread')
@@ -98,7 +98,7 @@ describe('Epic Test', () => {
     });
   });
 
-  describe('/message', () => {
+  describe('GET/message/sent', () => {
     it('should fetch all sent emails for a user', (done) => {
       chai.request(app)
         .get('/api/v1/messages/sent')
@@ -108,6 +108,38 @@ describe('Epic Test', () => {
           expect(res.body.data.some(message => message.status === 'draft')).to.equal(false);
           expect(res.body.data.some(message => message.status === 'sent')).to.equal(true);
           expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+  });
+
+  describe('GET/messages/:id', () => {
+    it('should respond with a specific message on valid message id', (done) => {
+      chai.request(app)
+        .get('/api/v1/messages/2')
+        .end((err, res) => {
+          expect(res.body.data).to.not.equal(null);
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+
+    it('should response with an error on non existing id', (done) => {
+      chai.request(app)
+        .get('/api/v1/messages/3')
+        .end((err, res) => {
+          expect(res.body.data).to.equal(undefined);
+          expect(res.statusCode).to.equal(400);
+          done();
+        });
+    });
+
+    it('should not respond with a specific message on invalid message id', (done) => {
+      chai.request(app)
+        .get('/api/v1/messages/oiij')
+        .end((err, res) => {
+          expect(res.body.data).to.equal(undefined);
+          expect(res.statusCode).to.equal(400);
           done();
         });
     });
