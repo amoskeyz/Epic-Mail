@@ -53,6 +53,26 @@ class Validate {
       return next();
     });
   }
+
+  static validateMessage(req, res, next) {
+    const {
+      subject, message, parentMessageId, status, senderId, receiverId,
+    } = req.body;
+
+    const newMessage = {
+      subject, message, parentMessageId, status, senderId, receiverId,
+    };
+
+    joi.validate(newMessage, schema.Messageschema, (err) => {
+      if (err) {
+        return res.status(400).json({
+          status: 400,
+          error: err,
+        });
+      }
+      return next();
+    });
+  }
 }
 
 export default Validate;

@@ -2,6 +2,7 @@ import chai from 'chai';
 import chaihttp from 'chai-http';
 import app from '../app';
 import users from './datas/user';
+import text from './datas/text';
 
 const { expect } = chai;
 chai.use(chaihttp);
@@ -73,10 +74,10 @@ describe('Epic Test', () => {
     });
   });
 
-  describe('GET/message', () => {
+  describe('GET/message/received', () => {
     it('should fetch all received emails for a user', (done) => {
       chai.request(app)
-        .get('/api/v1/messages')
+        .get('/api/v1/messages/received')
         .end((err, res) => {
           expect(res.body.data.length).to.not.equal(null);
           expect(res.statusCode).to.equal(200);
@@ -139,6 +140,28 @@ describe('Epic Test', () => {
         .get('/api/v1/messages/oiij')
         .end((err, res) => {
           expect(res.body.data).to.equal(undefined);
+          expect(res.statusCode).to.equal(400);
+          done();
+        });
+    });
+  });
+
+  describe('POST/compose', () => {
+    it('should create/send a message with valid data', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/compose')
+        .send(text[0])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+
+    it('should not create/send a message with invalid data', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/compose')
+        .send(text[1])
+        .end((err, res) => {
           expect(res.statusCode).to.equal(400);
           done();
         });

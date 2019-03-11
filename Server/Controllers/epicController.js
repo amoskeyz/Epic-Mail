@@ -18,6 +18,7 @@ class epicMail {
       id, firstname, lastname, email, password,
     };
     users.push(userObj);
+    console.log(userObj);
     return res.status(200).json({
       status: 200,
       data: { Token: token({ id: userObj.id }) },
@@ -48,14 +49,14 @@ class epicMail {
     });
   }
 
-  static getallreceivedmessages(req, res) {
+  static receivedMessages(req, res) {
     return res.status(200).json({
       status: 200,
       data: messages,
     });
   }
 
-  static getallunreadmessages(req, res) {
+  static unreadMessages(req, res) {
     const array = messages.filter(message => message.status === 'unread');
     return res.status(200).json({
       status: 200,
@@ -63,7 +64,7 @@ class epicMail {
     });
   }
 
-  static getallsentmessages(req, res) {
+  static sentMessages(req, res) {
     const array = messages.filter(message => message.status === 'sent');
     return res.status(200).json({
       status: 200,
@@ -71,7 +72,7 @@ class epicMail {
     });
   }
 
-  static getaspecificmessage(req, res) {
+  static specificMessage(req, res) {
     const messageObj = messages.find(message => message.id
     === Number(req.params.id));
     if (messageObj) {
@@ -83,6 +84,24 @@ class epicMail {
     return res.status(400).json({
       status: 400,
       error: 'message not found',
+    });
+  }
+
+  static composeMessage(req, res) {
+    const {
+      subject, message, parentMessageId, status, senderId, receiverId,
+    } = req.body;
+    const id = messages.length + 1;
+    const createdOn = new Date();
+    const textObj = {
+      id, subject, message, parentMessageId, status, createdOn, senderId, receiverId,
+    };
+    messages.push(textObj);
+    return res.status(200).json({
+      status: 200,
+      data: {
+        id, createdOn, subject, message, parentMessageId, status,
+      },
     });
   }
 }
