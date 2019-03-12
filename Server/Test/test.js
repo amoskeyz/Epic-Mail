@@ -167,4 +167,25 @@ describe('Epic Test', () => {
         });
     });
   });
+
+  describe('DELETE/messages/:id', () => {
+    it('should delete a mail that exist', (done) => {
+      chai.request(app)
+        .delete('/api/v1/messages/2')
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+
+    it('should respond with an error when trying to delete a non existing mail', (done) => {
+      chai.request(app)
+        .delete('/api/v1/messages/2')
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(404);
+          expect(res.body.status).to.equal(404);
+          done();
+        });
+    });
+  });
 });

@@ -12,11 +12,11 @@ const messages = [
     {
         "id" : 2,
         "createdon" : "Fri Mar 08 2019 19:37:03 GMT+0100 (West Africa Standard Time)",
-        "subject" : "Mosfet" ,
-        "message" : "I have seen the lords goodness he's mercies and companions" ,
-        "senderId" : 1,
-        "receiverId" : 1,
-        "parentMessageId" : 1,
+        "subject" : "Rccg Divine Pavilion" ,
+        "message" : "i miss u" ,
+        "senderId" : 3,
+        "receiverId" : 2,
+        "parentMessageId" : 11,
         "status" : "unread",
     },
     {

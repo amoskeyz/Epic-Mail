@@ -104,6 +104,22 @@ class epicMail {
       },
     });
   }
+
+  static deleteMessage(req, res) {
+    const messageid = req.params.id;
+    const messageObj = messages.find(message => message.id === Number(req.params.id));
+      if (!messageObj) {
+        return res.status(404).json({
+          status: 404,
+          error: 'message not found',
+        });
+      }
+      messages.splice(messageid-1,1)
+      return res.status(200).json({
+        satus: 200,
+        data:  { messageObj },
+      });
+    }
 }
 
 export default epicMail;
