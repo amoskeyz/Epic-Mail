@@ -106,7 +106,7 @@ class epicMail {
   }
 
   static deleteMessage(req, res) {
-    const messageid = req.params.id;
+    const messageId = req.params.id;
     const messageObj = messages.find(message => message.id === Number(req.params.id));
       if (!messageObj) {
         return res.status(404).json({
@@ -114,7 +114,9 @@ class epicMail {
           error: 'message not found',
         });
       }
-      messages.splice(messageid-1,1)
+      const id = parseInt(messageId); 
+      const index = messages.findIndex(message => message.id == id);
+      messages.splice(index, 1);
       return res.status(200).json({
         satus: 200,
         data:  { messageObj },
