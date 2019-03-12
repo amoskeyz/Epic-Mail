@@ -13,5 +13,6 @@ router.get('/messages/unread', Controller.unreadMessages);
 router.get('/messages/sent', Controller.sentMessages);
 router.get('/messages/:id', Validator.validateid, Controller.specificMessage);
 router.post('/auth/compose', Validator.validateMessage, Controller.composeMessage);
+router.delete('/messages/:id', Controller.deleteMessage);
 
 export default router;
