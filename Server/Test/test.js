@@ -26,7 +26,7 @@ describe('Epic Test', () => {
         .post('/api/v1/auth/signup')
         .send(users[0])
         .end((err, res) => {
-          expect(res.statusCode).to.equal(200);
+          expect(res.statusCode).to.equal(201);
           done();
         });
     });
@@ -35,6 +35,16 @@ describe('Epic Test', () => {
       chai.request(app)
         .post('/api/v1/auth/signup')
         .send(users[1])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(400);
+          done();
+        });
+    });
+
+    it('should return an error when a user attempts to sign-up with the same email twice', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signup')
+        .send(users[0])
         .end((err, res) => {
           expect(res.statusCode).to.equal(400);
           done();

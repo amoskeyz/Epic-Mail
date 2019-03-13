@@ -11,17 +11,28 @@ class epicMail {
 
   static signupUser(req, res) {
     const {
-      firstname, lastname, email, password,
+      firstName, lastName, email, password, phoneNumber,
     } = req.body;
+    let isExist = false;
+    users.forEach((user) => {
+      if (user.email === email) {
+        isExist = true;
+      }
+    });
+    if (isExist){
+      return res.status(400).json({
+        status: 400,
+        data: 'User already exist',
+      });
+    }
     const id = users.length + 1;
     const userObj = {
-      id, firstname, lastname, email, password,
+      id, firstName, lastName, email, password, phoneNumber,
     };
     users.push(userObj);
-    console.log(userObj);
-    return res.status(200).json({
-      status: 200,
-      data: { Token: token({ id: userObj.id }) },
+    return res.status(201).json({
+      status: 201,
+      data: { firstName, lastName, email, phoneNumber, token: token({ id: userObj.id }) },
     });
   }
 
