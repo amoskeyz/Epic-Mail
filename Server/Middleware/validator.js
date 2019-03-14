@@ -4,11 +4,11 @@ import schema from '../Helper/schemas';
 class Validate {
   static validateSignup(req, res, next) {
     const {
-      firstname, lastname, email, password, phoneNumber,
+      firstName, lastName, email, password, phoneNumber,
     } = req.body;
 
     const user = {
-      firstname, lastname, email, password, phoneNumber,
+      firstName, lastName, email, password, phoneNumber,
     };
 
     joi.validate(user, schema.Registerschema, (err) => {
