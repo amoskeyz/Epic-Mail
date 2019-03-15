@@ -30,6 +30,7 @@ describe('Epic Test', () => {
         .send(users[0])
         .end((err, res) => {
           expect(res.statusCode).to.equal(201);
+          userToken = res.body.data.token;
           done();
         });
     });
@@ -82,7 +83,7 @@ describe('Epic Test', () => {
         .send(users[4])
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
-          userToken = res.body.data.Token;
+          userToken = res.body.data.token;
           done();
         });
     });
