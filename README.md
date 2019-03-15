@@ -1,16 +1,16 @@
-#### Epic mail
+# Epic mail
 
 [![Build Status](https://travis-ci.org/amoskeyz/Epic-mail.svg?branch=develop)](https://travis-ci.org/amoskeyz/Epic-mail)
 [![Coverage Status](https://coveralls.io/repos/github/amoskeyz/Epic-mail/badge.svg?branch=develop)](https://coveralls.io/github/amoskeyz/Epic-mail?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/fd1d5735c61d510da04b/maintainability)](https://codeclimate.com/github/amoskeyz/Epic-mail/maintainability)
 
-#### Project Title
+# Project Title
 Epic mail is a web application that allows users to communicate by sending mails to one another and allows a user to create groups.
 
-#### Getting Started
+# Getting Started
 Create a git repo on your local machine by cloning this repo from the dashboard.
 
-#### Prerequisites
+# Prerequisites
 What things you need to install the software and how to install them
 
 nodejs
@@ -52,10 +52,10 @@ heroku.com
 Built With
 Node Sublime Chrome
 
-#### Authors
+# Authors
 Amos Oruaroghene
 License
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
-#### Acknowledgments
+# Acknowledgments
 This project was inspired by the Andela team
