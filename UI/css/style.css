@@ -1,363 +1,375 @@
 @font-face{
-font-family: "ethnocentric rg";
-src: url("../font/ethnocentric rg.ttf") format("opentype");
-}
-
-body {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    background-color:rgba(102,85,85,0.5);
-}
-
-.logo{
-    font-family: 'Ethnocentric Rg';
-    font-size:26px;
-    color: white;
-    letter-spacing: 3px;
-    margin-left:4px;
-}
-
-.hh{
-    text-align:center;
-    font-family: helvetica;
-    color: white;
-    font-size: 79px;
-    padding:0.1em;
-    margin: 0px;
-}
-span{
-    background:transparent;
-    background-size: contain;
-    background-position: -150px;
-    display: flex;
-    justify-content: space-between;
-    height: auto;
-}
-
-.header{
-    padding: 0.6em;
-    font-size: 10%;
-    display: flex;
-    justify-content: space-between;
-    background-color: transparent;
-    font-weight: bold;
-}
-
-
-img{
-    padding: 5px;
-    width: 200px;
-    height: 15px;
-}
-
-.menu {
-    display: flex;
-    flex-direction: row;
-}
-
-.menu > a{
-    text-decoration: none;
-    color: white;
-    margin: 0px 10px;
-    padding:0.5em 0.9em;
-    font-weight:lighter;
-    border-radius: 10px;
-    border-bottom: 2px solid orangered;
-    opacity: 0.95;
-    font-size: 20px;
-}
-
-.menu1{
-    display: flex;
-}
-
-.menu1 > a{
-    text-decoration: none;
-    color: white;
-    margin: 10px auto;
-    padding:0.5em 0.9em;
-    font-family: helvetical;
-    border-radius: 5px;
-    font-size: 20px;
-    height:20px; 
-    border:1px solid white;
-    background-color:orangered;
-}
-
-.icon{
-    text-align: center;
-    width: 100%;
-    color: white;
-    font-size: 20px;
-    font-weight:bolder;
-    margin-bottom:px;
-}
-
-.flexcontent{
-    display: flex;
-    justify-content: space-between;
-}
-
-h1{
-    font-family: "Courier New", Courier, monospace;
-    font-family: 1.2em;
-}
-
-body, .content::before{
-    background:url(../img/container.jpg) 100% /cover fixed;
-}
-
-.modal-content{
-    width:1200px;
-    height:570px;
-    margin:60.5px auto;
-    background-color: rgba(0,0,0,0.3);
-}
-
-.content{
-    position: relative;
-    width: 300px;
-    height: 450px;
-    top: -110px;
-    margin:100px 50px 50px 0px;
-    padding: 30px;
-    border: 3px solid white;
-    border-radius: 0 30px 0 30px;
-}
-
-.content::before{
-    content: '';
-    position: absolute;
-    z-index: -1;
-    margin: -5px;
-    top:0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: 0 30px 0 30px;
-    filter: blur(5px);
-}
-
-.flex{
-     margin:100px 0px 50px 50px;
-}
-
-h2{
-    text-align: center;
-    color: white;
-    font-size: 20px;
-}
-
-label{
-    background: none;
-    display: block;
-    position: relative;
-    top: -20px;
-    left: 0px;
-    color: white;
-    font-family: 'Helvetica', sans-serif;
-    font-size: 16px;
-    z-index: 1;
-    transition: all 0.3s ease;
-}
-
-input{
-    display: block;
-    position: relative;
-    border: 0;
-    background: none;
-    width:100%;
-    height:20px;
-    font-family:Helvetica;
-    font-size:16px;
-    padding-top: 20px;
-    border-bottom: 1px solid #ddd;
-    font-weight: lighter;
-    z-index: 2;  
-}
-
-input:focus, input:valid {
-    outline: none;
-    border-bottom: 1px solid blue;
-}
-
-input:focus + label, input:valid + label{
-    top: -40px;
-    font-size: 13px;
-    color: white;
-    font-weight: normal;
-}
-
-.content a{
-    font-family: 'helvetica';
-    font-size: 13px;
-    color: green;
-    text-decoration: none;
-}
-.btn {
-    
-}
-
-.forget{
-    margin-top: 7px;
-    color: white;
-    cursor: pointer;
-    text-decoration: underline;
-    font-size:14px;
-    position:relative;
-    top:25px;
-        
-}
-
-.footer{
-    font-size: 20px;
-    color: green;
-    position: absolute;
-    bottom: 3px;
-    width:100%;
-    text-align:center;
-    padding:0px;
-    margin-top:10px;
-    margin-bottom:0;
-}
-
-.bntt > a{
-    margin-top: 0px;
-    padding:16px 120px;
-    background-color:orangered;
-    border: 0;
-    opacity: 0.75;
-    color: white;
-    width: 120%;
-    cursor:pointer;
-    position:relative;
-    top:6px;
-    left:6px;
-    
-}
-
-
-@media only screen and (max-width:1180px){
-    
-    .modal-content{
-        margin: 35px 0px;
-        width: 100%;
+    font-family: "ethnocentric rg";
+    src: url("../font/ethnocentric rg.ttf") format("opentype");
     }
-}
-@media only screen and (max-width:900px){    
     
-    .modal-content{
-        margin: 0px;
+    body {
         width: 100%;
         height: 100%;
-    }
-    .logo{
-        margin:10px;
-        font-size:20px;
-    }
-    
-    .login{
-        margin:18px;
-        font-size:16px;
-    }
-    
-    .content{
-        margin:150px 25px 75px 20px;
-        width:300px;
-    }
-    
-    .bntt > a{
-        white-space: nowrap;
-    }
-    
-    .icon{
-        font-size:25px
-    }
-}
-
-
-
-@media only screen and (max-width:800px){
-
-    
-    .flex{
-        margin:10px 0px 5px 0px;
-    }
-    
-    .flexcontent{
-        flex-direction: column;
+        padding: 0;
+        margin: 0;
+        background-color:rgba(102,85,85,0.5);
     }
     
     .logo{
-        margin:10px;
-        font-size:20px;
+        font-family: 'Ethnocentric Rg';
+        font-size:26px;
+        color: yellow;
+        letter-spacing: 3px;
+        margin-left:4px;
     }
     
-    .login{
-        margin:14px;
-        font-size:16px;
+    .hh{
+        text-align:center;
+        font-family: 'Ethnocentric';
+        color: white;
+        font-size: 79px;
+        padding:0.1em;
+        margin: 0px;
+    }
+    span{
+        background:transparent;
+        background-size: contain;
+        background-position: -150px;
+        display: flex;
+        justify-content: space-between;
+        height: auto;
+    }
+    
+    .header{
+        padding: 0.6em;
+        font-size: 10%;
+        display: flex;
+        justify-content: space-between;
+        background-color: transparent;
+        font-weight: bold;
+    }
+    
+    
+    img{
+        padding: 5px;
+        width: 200px;
+        height: 15px;
+    }
+    
+    .menu {
+        display: flex;
+        flex-direction: row;
     }
     
     .menu > a{
-        margin-top:8px;
-        font-size:16px;
+        text-decoration: none;
+        color: white;
+        margin: 0px 10px;
+        padding:0.5em 0.9em;
+        font-weight:lighter;
+        border-radius: 10px;
+        border-bottom: 2px solid orangered;
+        opacity: 0.95;
+        font-size: 20px;
     }
     
-    
-    .content{
-        margin: 150px auto;
-        width:55%;
+    .menu1{
+        display: flex;
     }
     
-    .bntt > a{
-        padding:10px 80px;
-        margin-left:9px
-    }
-
-}
-
-@media only screen and (max-width:390px){
-
-    
-    .flex{
-        margin:10px 0px 5px 0px;
-    }
-    
-    .flexcontent{
-        flex-direction: column;
-    }
-    
-    .logo{
-        margin:10px;
-        font-size:10px;
-    }
-    
-    .login{
-        margin:10px;
-        font-size:14px;
-        font-weight:bold;
-    }
-    
-    .menu > a{
-        margin-top:1px;
-        font-size:14px;
+    .menu1 > a{
+        text-decoration: none;
+        color: white;
+        margin: 10px auto;
+        padding:0.5em 0.9em;
+        font-family: helvetical;
+        border-radius: 5px;
+        font-size: 20px;
+        height:20px; 
+        border:1px solid white;
+        background-color:orangered;
     }
     
     .icon{
-        font-size:17px;
+        text-align: center;
+        width: 100%;
+        color: white;
+        font-size: 25px;
+        font-weight:bolder;
+        margin-bottom:px;
     }
     
+    .flexcontent{
+        display: flex;
+        justify-content: space-between;
+    }
     
+    h1{
+        font-family: "Courier New", Courier, monospace;
+        font-family: 1.2em;
+    }
+    
+    body, .content::before{
+        background:url(../img/container.jpg) 100% /cover fixed;
+    }
+    
+    .modal-content{
+        width:1200px;
+        height:570px;
+        margin:60.5px auto;
+        background-color: rgba(0,0,0,0.3);
+    }
     
     .content{
-        margin-left:35px;
-        width:60%;
+        position: relative;
+        width: 300px;
+        height: 450px;
+        top: -110px;
+        margin:100px 50px 50px 0px;
+        padding: 30px;
+    }
+    
+    .content::before{
+        content: '';
+        position: absolute;
+        z-index: -1;
+        margin: -5px;
+        top:0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: 0 30px 0 30px;
+        filter: blur(5px);
+    }
+    
+    .flex{
+         margin:100px 0px 50px 50px;
+    }
+    
+    h2{
+        text-align: center;
+        color: white;
+        font-size: 20px;
+    }
+    
+    label{
+        background: none;
+        display: block;
+        position: relative;
+        top: -20px;
+        left: 0px;
+        color: white;
+        font-family: 'Helvetica', sans-serif;
+        font-size: 16px;
+        z-index: 1;
+        transition: all 0.3s ease;
+    }
+    
+    input{
+        display: block;
+        position: relative;
+        border: 0;
+        background: none;
+        width:100%;
+        height:20px;
+        font-family:Helvetica;
+        font-size:16px;
+        padding-top: 20px;
+        border-bottom: 1px solid #ddd;
+        font-weight: lighter;
+        z-index: 2;  
+    }
+    
+    input:focus, input:valid {
+        outline: none;
+        border-bottom: 1px solid blue;
+    }
+    
+    input:focus + label, input:valid + label{
+        top: -40px;
+        font-size: 13px;
+        color: white;
+        font-weight: normal;
+    }
+    
+    .content a{
+        font-family: 'helvetica';
+        font-size: 13px;
+        color: green;
+        text-decoration: none;
+    }
+    .btn {
+        
+    }
+    
+    .forget{
+        margin-top: 7px;
+        color: white;
+        cursor: pointer;
+        text-decoration: underline;
+        font-size:14px;
+        position:relative;
+        top:25px;
+            
+    }
+    
+    .footer{
+        font-size: 20px;
+        color: green;
+        position: absolute;
+        bottom: 3px;
+        width:100%;
+        text-align:center;
+        padding:0px;
+        margin-top:10px;
+        margin-bottom:0;
     }
     
     .bntt > a{
-        margin-left:1px
+        margin-top: 0px;
+        padding:16px 120px;
+        background-color:orangered;
+        border: 0;
+        opacity: 0.75;
+        color: white;
+        width: 120%;
+        cursor:pointer;
+        position:relative;
+        top:6px;
+        left:6px;
+        
     }
-
-}
+    
+    
+    @media only screen and (max-width:1180px){
+        
+        .modal-content{
+            margin: 35px 0px;
+            width: 100%;
+        }
+         .hh{
+            font-size:40px;
+        }
+    }
+    @media only screen and (max-width:900px){    
+        
+        .modal-content{
+            margin: 0px;
+            width: 100%;
+            height: 100%;
+        }
+        .logo{
+            margin:10px;
+            font-size:20px;
+        }
+        
+        .hh{
+            font-size:50px;
+        }
+        
+        .login{
+            margin:18px;
+            font-size:16px;
+        }
+        
+        .content{
+            margin:150px 25px 75px 20px;
+            width:300px;
+        }
+        
+        .bntt > a{
+            white-space: nowrap;
+        }
+        
+        .icon{
+            font-size:25px
+        }
+    }
+    
+    
+    
+    @media only screen and (max-width:800px){
+    
+        
+        .flex{
+            margin:10px 0px 5px 0px;
+        }
+        
+        .flexcontent{
+            flex-direction: column;
+        }
+        
+        .logo{
+            margin:10px;
+            font-size:20px;
+        }
+        
+        .login{
+            margin:14px;
+            font-size:16px;
+        }
+        
+        .menu > a{
+            margin-top:8px;
+            font-size:16px;
+        }
+        
+        .hh{
+            font-size:50px
+        }
+        .content{
+            margin: 90px auto;
+            width:55%;
+        }
+        
+        .bntt > a{
+            padding:10px 80px;
+            margin-left:9px
+        }
+    
+    }
+    
+    @media only screen and (max-width:390px){
+    
+        
+        .flex{
+            margin:10px 0px 5px 0px;
+        }
+        
+        .flexcontent{
+            flex-direction: column;
+        }
+        
+        .logo{
+            margin:10px;
+            font-size:15px;
+        }
+        
+        .hh{
+            font-size:45px;
+        }
+        
+        .login{
+            margin:10px;
+            font-size:14px;
+            font-weight:bold;
+        }
+        
+        .menu > a{
+            margin-top:1px;
+            font-size:14px;
+        }
+        
+        .icon{
+            font-size:17px;
+        }
+        
+        
+        
+        .content{
+            
+            margin-top:70px;
+            width:60%;
+        }
+        
+        .bntt > a{
+            margin-left:1px
+        }
+    
+    }
