@@ -51,7 +51,7 @@ class epicMail {
     if (isExist) {
       return res.status(200).json({
         status: 200,
-        data: { Token: token({ id }) },
+        data: { token: token({ id }) },
       });
     }
     return res.status(400).json({
