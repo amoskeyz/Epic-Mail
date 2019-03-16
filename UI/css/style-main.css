@@ -157,7 +157,7 @@
     .bnt{
         margin: 20px 10px;
         padding: 0.8em;
-        background-color:green;
+        background-color:#38726c;
         border: 0;
         color: white;
         width: 90%;
@@ -268,9 +268,10 @@
         text-align: center;
         padding: 10px;
         height: 0px;
-        color: gray;
+        color: black;
         font-size:1.2em;
         font-family:'Times new roman';
+        font-weight: bold;
     }
     
     
@@ -1083,6 +1084,36 @@
         top: px;
         font-size: 1.2em;
     }
+        .modal-content{
+        width:600px;
+        height:500px;
+        margin:50px auto 0;
+        position: absolute;
+        top: %;
+        left: 15%;
+        background-color:white;
+    }
+    
+    .put{
+        width:84%;
+    }
+    
+        .bar{
+            width: 588px;
+        }
+    textarea{
+        width: 96%;
+    }
+    
+    .action{
+        left: 200px;
+        width: 500px;
+    }
+    
+    .clos::before{
+        right: 110px; 
+    }
+        
     }
     @media only screen and (max-width:900px){
     
@@ -1106,6 +1137,10 @@
         
         #menu-bar,.message,.right-bar,#right,.search-bar, .input span::before{
         display: none; 
+        }
+        
+        .open{
+            display:none;
         }
         
         #menu-bar > hr{
@@ -1135,5 +1170,35 @@
             display: none;
             color:white;
         }
+        
+       .modal-content{
+        width:330px;
+        height:500px;
+        margin:50px auto 0;
+        position: absolute;
+        top: %;
+        left: 4%;
+        background-color:white;
+    }
+    
+    .put{
+        width:48%;
+    }
+    
+        .bar{
+            width: 318px;
+        }
+    textarea{
+        width: 60%;
+    }
+    
+    .action{
+        left: 70px;
+        width: 500px;
+    }
+    
+    .clos::before{
+        right: 380px; 
+    }
     
     }

@@ -196,18 +196,16 @@
         text-decoration: none;
         font-weight: bold;
     }
-    .btn {
-        
-    }
     
     .forget{
         margin-top: 7px;
         color: white;
         cursor: pointer;
         text-decoration: underline;
-        font-size:14px;
+        font-size:16px;
         position:relative;
-        top:-14px;
+        top:-20px;
+        left: 80px;
             
     }
     
@@ -377,6 +375,14 @@
         .bntt > a{
             margin-left:1px
         }
+        .forget{
+       
+        top:-20px;
+        left: 50px;
+            
+    }
+    
         
     }
-        
+    
+    
