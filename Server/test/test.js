@@ -1,8 +1,8 @@
 import chai from 'chai';
 import chaihttp from 'chai-http';
 import app from '../app';
-import users from './datas/user';
-import text from './datas/text';
+import users from './data/user';
+import text from './data/text';
 
 let userToken;
 let userError;
@@ -18,6 +18,17 @@ describe('Epic Test', () => {
         .end((err, res) => {
           expect(res.body.message).to.equal('Welcome to EPic mail');
           expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+  });
+
+  describe('GET/auth/signup', () => {
+    it('should return page not found on invalid route', (done) => {
+      chai.request(app)
+        .get('/api/v1/auth/signup')
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(404);
           done();
         });
     });
@@ -50,7 +61,7 @@ describe('Epic Test', () => {
         .post('/api/v1/auth/signup')
         .send(users[0])
         .end((err, res) => {
-          expect(res.statusCode).to.equal(400);
+          expect(res.statusCode).to.equal(409);
           done();
         });
     });
@@ -177,6 +188,15 @@ describe('Epic Test', () => {
           done();
         });
     });
+  });
+
+  it('should not respond with an error with undefined token', (done) => {
+    chai.request(app)
+      .get('/api/v1/messages/1')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        done();
+      });
   });
 
   describe('POST/compose', () => {

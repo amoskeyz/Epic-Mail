@@ -1,7 +1,7 @@
 import joi from 'joi';
-import schema from '../Helper/schemas';
+import schema from '../helper/schemas';
 
-class Validate {
+class validate {
   static validateSignup(req, res, next) {
     const {
       firstName, lastName, email, password, phoneNumber,
@@ -15,7 +15,7 @@ class Validate {
       if (err) {
         return res.status(400).json({
           status: 400,
-          error: err,
+          error: 'one more entry required',
         });
       }
       return next();
@@ -75,4 +75,4 @@ class Validate {
   }
 }
 
-export default Validate;
+export default validate;

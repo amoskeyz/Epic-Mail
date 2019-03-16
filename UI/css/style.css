@@ -53,20 +53,20 @@
     }
     
     .menu {
-        display: flex;
-        flex-direction: row;
+        padding:2.5em 4em;
+      display: flex;
+        color:white;
+        white-space: nowrap;
+            
     }
     
     .menu > a{
         text-decoration: none;
         color: white;
         margin: 0px 10px;
-        padding:0.5em 0.9em;
+        padding:.em;
         font-weight:lighter;
-        border-radius: 10px;
-        border-bottom: 2px solid orangered;
-        opacity: 0.95;
-        font-size: 20px;
+        cursor: pointer;
     }
     
     .menu1{
@@ -120,7 +120,7 @@
         position: relative;
         width: 300px;
         height: 450px;
-        top: -110px;
+        top: -150px;
         margin:100px 50px 50px 0px;
         padding: 30px;
     }
@@ -188,11 +188,12 @@
         font-weight: normal;
     }
     
-    .content a{
+    .content  a{
         font-family: 'helvetica';
-        font-size: 13px;
-        color: green;
+        font-size: 14px;
+        color: yellow;
         text-decoration: none;
+        font-weight: bold;
     }
     .btn {
         
