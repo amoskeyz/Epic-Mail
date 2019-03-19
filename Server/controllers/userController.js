@@ -17,7 +17,6 @@ class userController {
     try {
       const output = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
       const returnemail = output.rows[0];
-      console.log(returnemail);
       if (returnemail !== undefined) {
         return res.status(409).json({
           status: 409,
@@ -25,7 +24,10 @@ class userController {
         });
       }
     } catch (err) {
-      console.log(err);
+      return res.status(400).json({
+        status: 400,
+        error: 'Bad Request',
+      });
     }
 
     const user = {
@@ -46,27 +48,28 @@ class userController {
     });
   }
 
-  static signinUser(req, res) {
+  static async signinUser(req, res) {
     const {
       email, password,
     } = req.body;
-    let isExist = false;
     let id;
-    users.forEach((user) => {
-      if (user.email === email && user.password === password) {
-        isExist = true;
-        ({ id } = user);
+    try {
+      const output = await pool.query('SELECT * FROM users WHERE (email = $1 AND password  = $2)', [email, password]);
+      if (output.rows[0] === undefined) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Invalid User',
+        });
       }
-    });
-    if (isExist) {
-      return res.status(200).json({
-        status: 200,
-        data: { token: token({ id }) },
+    } catch (err) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Bad Request',
       });
     }
-    return res.status(400).json({
-      status: 400,
-      error: 'Invalid User',
+    return res.status(200).json({
+      status: 200,
+      data: { token: token({ id }) },
     });
   }
 }
