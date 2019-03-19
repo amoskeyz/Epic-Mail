@@ -5,7 +5,7 @@ const users = [
       'firstname': 'epic',
       'lastname': 'mail',
       "password": 'doitnow',
-      //'phoneNumber': '090878985',
+      'phoneNumber': '090878985',
     },
 
     {

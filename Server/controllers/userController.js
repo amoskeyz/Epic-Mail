@@ -1,5 +1,6 @@
 import token from '../helper/token';
 import users from '../models/user';
+import pool from '../config/config';
 
 
 class userController {
@@ -9,31 +10,38 @@ class userController {
     });
   }
 
-  static signupUser(req, res) {
+  static async signupUser(req, res) {
     const {
-      firstName, lastName, email, password, phoneNumber,
+      firstname, lastname, email, password, phonenumber,
     } = req.body;
-    let isExist = false;
-    users.forEach((user) => {
-      if (user.email === email) {
-        isExist = true;
+    try {
+      const output = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+      const returnemail = output.rows[0];
+      console.log(returnemail);
+      if (returnemail !== undefined) {
+        return res.status(409).json({
+          status: 409,
+          data: 'User already exist',
+        });
       }
-    });
-    if (isExist) {
-      return res.status(409).json({
-        status: 409,
-        data: 'User already exist',
-      });
+    } catch (err) {
+      console.log(err);
     }
-    const id = users.length + 1;
-    const userObj = {
-      id, firstName, lastName, email, password, phoneNumber,
+
+    const user = {
+      text: `INSERT INTO users(  
+      firstname,
+      lastname,
+      email,
+      phoneNumber,
+      password)VALUES($1, $2, $3, $4, $5) RETURNING *`,
+      values: [firstname, lastname, email, phonenumber, password],
     };
-    users.push(userObj);
+    const userArray = await pool.query(user);
     return res.status(201).json({
       status: 201,
       data: {
-        firstName, lastName, email, phoneNumber, token: token({ id: userObj.id }),
+        firstname, lastname, email, phonenumber, token: token({ id: userArray.id }),
       },
     });
   }

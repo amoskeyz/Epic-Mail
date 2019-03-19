@@ -1,10 +1,10 @@
 const users = [
     {
-        "email": "inspirion.amos@gmail.com",
-        "firstName": "Amos",
-        "lastName": "Oruaroghene",
+        "email": "inspirion.amouyiuiy@gmail.com",
+        "firstname": "Amojjs",
+        "lastname": "Oruarojhjhghene",
         "password": "4443332ffgh",
-        "phoneNumber": "09087675434"
+        "phonenumber": "090"
     },
     {
       'id': 1,

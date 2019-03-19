@@ -4,9 +4,11 @@
   "description": "This is a web application that allows users to communicate by sending mails to one another",
   "main": "index.js",
   "scripts": {
+    "create": "babel-node Server/migration/createTable.js",
+    "drop": "babel-node Server/migration/dropTable.js",
     "start": "rimraf dist/ && babel ./Server -d dist && node dist/app.js",
     "startdev": "nodemon --exec babel-node Server/app.js",
-    "test": "cross-env NODE_ENV=test nyc --require @babel/register mocha Server/test --exit",
+    "test": "npm run drop && npm run create && cross-env NODE_ENV=test nyc --require @babel/register mocha Server/test --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "rimraf dist/ && babel ./Server -d dist"
   },
@@ -37,12 +39,14 @@
     "express": "^4.16.4",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.0",
-    "mocha": "^6.0.2"
+    "mocha": "^6.0.2",
+    "pg": "^7.9.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
     "@babel/node": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "coveralls": "^3.0.3",
     "cross-env": "^5.2.0",

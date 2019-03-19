@@ -5,3 +5,5 @@ coverage/
 
 *.env
 swagger-editor-doc/
+swagger-ui
+node-swagger-api
