@@ -1,15 +1,13 @@
 import pool from '../config/config';
 
-const dropUserTable = 'DROP TABLE users';
-
-
-async function deleteUser() {
+async function deleteTable() {
   try {
-    await pool.query(dropUserTable);
+    await pool.query('DROP TABLE users');
+    await pool.query('DROP TABLE messages');
     console.log('Tables successfully deleted');
   } catch (error) {
-    console.log('user doesn\'t exist');
+    console.log('Tables doesn\'t exist');
   }
 }
 
-deleteUser();
+deleteTable();

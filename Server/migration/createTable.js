@@ -11,29 +11,39 @@ const userTable = `CREATE TABLE IF NOT EXISTS users(
   password text NOT NULL
   );
 `;
+const messageTable = `CREATE TABLE IF NOT EXISTS messages(
+  id serial PRIMARY KEY,
+  createdon text NOT NULL,
+  subject text NOT NULL,
+  message text NOT NULL,
+  receiverid integer NOT NULL,
+  senderid integer NOT NULL,
+  parentmessageid integer,
+  status text NOT NULL
+);
+`;
 
 
-// const date = new Date().toString();
-// const nextDate = new Date('March 13, 2019 05:35:32').toString();
+const date = new Date().toString();
 
 async function create() {
-  const createTable = `${userTable}`;
+  const createTable = `${userTable}${messageTable}`;
   const user = {
-    text: `INSERT INTO users (  
-    firstname,
-    lastname,
-    email,
-    phonenumber,
-    password) VALUES($1, $2, $3, $4, $5)`,
+    text: `INSERT INTO users (firstname, lastname, email, phonenumber, password) 
+    VALUES($1, $2, $3, $4, $5)`,
     values: ['amos', 'oruaroghene', 'amoserve@gmail.com', 667, 'seven'],
+  };
 
+  const message = {
+    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 5, 4, 3, 'unread'],
   };
 
   try {
-    await pool.query(userTable);
+    await pool.query(createTable);
     await pool.query(user.text, user.values);
-    const output = await pool.query('SELECT * FROM users WHERE email = $1', ['amoser@gmail.com']);
-    console.log(output.rows[0]);
+    await pool.query(message.text, message.values);
     console.log('Created tables');
   } catch (error) {
     console.log(error);
