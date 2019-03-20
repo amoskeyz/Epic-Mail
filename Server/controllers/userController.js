@@ -40,10 +40,11 @@ class userController {
       values: [firstname, lastname, email, phonenumber, password],
     };
     const userArray = await pool.query(user);
+    const { id } = userArray.rows[0];
     return res.status(201).json({
       status: 201,
       data: {
-        firstname, lastname, email, phonenumber, token: token({ id: userArray.id }),
+        firstname, lastname, email, phonenumber, token: token({ id }),
       },
     });
   }

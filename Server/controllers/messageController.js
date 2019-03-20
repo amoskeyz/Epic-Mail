@@ -1,11 +1,21 @@
 import messages from '../models/messages';
+import pool from '../config/config';
 
 class messageController {
-  static receivedMessages(req, res) {
-    return res.status(200).json({
-      status: 200,
-      data: messages,
-    });
+  static async receivedMessages(req, res) {
+    const id = req.decoder;
+    try {
+      const response = await pool.query('SELECT createdon, subject, message, parentmessageid, status FROM messages where receiverid = $1', [id]);
+      return res.status(200).json({
+        status: 200,
+        data: response.rows,
+      });
+    } catch (err) {
+      return res.status(400).json({
+        status: 500,
+        response: 'Server error',
+      });
+    }
   }
 
   static unreadMessages(req, res) {
