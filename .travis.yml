@@ -7,15 +7,18 @@ cache:
 directories:
   - "node_modules"
 
-  services:
+services:
   - postgresql
 
 before_script:
-  - psql -c 'create database Epic-mail;' -U postgres
+  - psql -c 'create database epic_mail_db;' -U postgres
   - npm run create
 
-script: 
+script:
   - npm run test
 
-after_script: 
+after_script:
   - npm run coverage
+
+after_script:
+  - ./cc-test-reporter after-build -t "lcov" --exit-code $TRAVIS_TEST_RESULT

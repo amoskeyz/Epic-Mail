@@ -23,8 +23,8 @@ const users = [
         "password" : "doitanytime"
     },
     {
-        "email": "popo@epicmail.com",
-        "password" : "uche123"
+        "email": "inspirion.amouyiuiy@gmail.com",
+        "password" : "4443332ffgh"
      }
     
   ];
