@@ -53,7 +53,6 @@ class userController {
     const {
       email, password,
     } = req.body;
-    let id;
     try {
       const output = await pool.query('SELECT * FROM users WHERE (email = $1 AND password  = $2)', [email, password]);
       if (output.rows[0] === undefined) {
@@ -62,16 +61,17 @@ class userController {
           error: 'Invalid User',
         });
       }
+      const { id } = output.rows[0];
+      return res.status(200).json({
+        status: 200,
+        data: { token: token({ id }) },
+      });
     } catch (err) {
       return res.status(400).json({
         status: 400,
         error: 'Bad Request',
       });
     }
-    return res.status(200).json({
-      status: 200,
-      data: { token: token({ id }) },
-    });
   }
 }
 
