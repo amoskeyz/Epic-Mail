@@ -26,13 +26,29 @@ class messageController {
     });
   }
 
-  static sentMessages(req, res) {
-    const array = messages.filter(message => message.status === 'sent');
-    return res.status(200).json({
-      status: 200,
-      data: array,
-    });
+  static async sentMessages(req, res) {
+    const id = req.decoder;
+    try {
+      const response = await pool.query('SELECT createdon, subject, message, parentmessageid, status FROM messages where senderid = $1', [id]);
+      console.log(response.rows[0]);
+      if (response.rows[0] === undefined) {
+        return res.status(400).json({
+          status: 'Error',
+          data: 'NO SENT MESSAGE FOUND',
+        });
+      }
+      return res.status(200).json({
+        status: 200,
+        data: response.rows[0],
+      });
+    } catch (err) {
+      return res.status(505).json({
+        status: 500,
+        response: 'Server error',
+      });
+    }
   }
+
 
   static specificMessage(req, res) {
     const messageObj = messages.find(message => message.id

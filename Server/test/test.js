@@ -5,7 +5,6 @@ import users from './data/user';
 import text from './data/text';
 
 let userToken;
-let userError;
 
 const { expect } = chai;
 chai.use(chaihttp);
@@ -104,9 +103,21 @@ describe('Epic Test', () => {
     it('should fetch all received emails for a user', (done) => {
       chai.request(app)
         .get('/api/v1/messages/received')
-        .set('authtoken', userToken)
+        .set({ authtoken: userToken })
         .end((err, res) => {
           expect(res.body.data.length).to.not.equal(null);
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+  });
+
+  describe('GET/message/sent', () => {
+    it('should fetch all sent emails for a user', (done) => {
+      chai.request(app)
+        .get('/api/v1/messages/sent')
+        .set('authtoken', userToken)
+        .end((err, res) => {
           expect(res.statusCode).to.equal(200);
           done();
         });
@@ -121,22 +132,6 @@ describe('Epic Test', () => {
         .end((err, res) => {
           expect(res.body.data.some(message => message.status === 'read')).to.equal(false);
           expect(res.body.data.some(message => message.status === 'unread')).to.equal(true);
-          expect(res.statusCode).to.equal(200);
-          done();
-        });
-    });
-  });
-
-  describe('GET/message/sent', () => {
-    it('should fetch all sent emails for a user', (done) => {
-      chai.request(app)
-        .get('/api/v1/messages/sent')
-        .set('authtoken', userToken)
-        .end((err, res) => {
-          expect(res.body.data.some(message => message.status === 'read')).to.equal(false);
-          expect(res.body.data.some(message => message.status === 'unread')).to.equal(false);
-          expect(res.body.data.some(message => message.status === 'draft')).to.equal(false);
-          expect(res.body.data.some(message => message.status === 'sent')).to.equal(true);
           expect(res.statusCode).to.equal(200);
           done();
         });
@@ -189,9 +184,9 @@ describe('Epic Test', () => {
     });
   });
 
-  it('should not respond with an error with undefined token', (done) => {
+  it('should respond with an error with undefined token', (done) => {
     chai.request(app)
-      .get('/api/v1/messages/1')
+      .get('/api/v1/messages/98')
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
         done();
