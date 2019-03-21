@@ -55,7 +55,7 @@ class messageController {
         data: response.rows[0],
       });
     } catch (err) {
-      return res.status(505).json({
+      return res.status(500).json({
         status: 500,
         response: 'Server error',
       });
@@ -63,20 +63,44 @@ class messageController {
   }
 
 
-  static specificMessage(req, res) {
-    const messageObj = messages.find(message => message.id
-        === Number(req.params.id));
-    if (messageObj) {
+  static async specificMessage(req, res) {
+    const id = req.decoder;
+    const i = Number(req.params.id);
+    try {
+      const response = await pool.query('SELECT * FROM messages WHERE (receiverid = $1 OR senderid  = $2)', [id, id]);
+      const messageObj = response.rows.find(message => message.i === i);
+      if (!messageObj) {
+        return res.status(400).json({
+          status: 'Error',
+          error: 'message not found',
+        });
+      }
       return res.status(200).json({
-        status: 200,
+        status: 'Successful',
         data: messageObj,
       });
+    } catch (err) {
+      return res.status(500).json({
+        status: 'Error',
+        error: 'Server Error',
+      });
     }
-    return res.status(400).json({
-      status: 400,
-      error: 'message not found',
-    });
   }
+
+  // static specificMessage(req, res) {
+  //   const messageObj = messages.find(message => message.id
+  //       === Number(req.params.id));
+  //   if (messageObj) {
+  //     return res.status(200).json({
+  //       status: 200,
+  //       data: messageObj,
+  //     });
+  //   }
+  //   return res.status(400).json({
+  //     status: 400,
+  //     error: 'message not found',
+  //   });
+  // }
 
   static composeMessage(req, res) {
     const {

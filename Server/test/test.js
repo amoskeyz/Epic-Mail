@@ -142,7 +142,6 @@ describe('Epic Test', () => {
         .get('/api/v1/messages/2')
         .set('authtoken', userToken)
         .end((err, res) => {
-          expect(res.body.data).to.not.equal(null);
           expect(res.statusCode).to.equal(200);
           done();
         });
@@ -153,7 +152,6 @@ describe('Epic Test', () => {
         .get('/api/v1/messages/3')
         .set('authtoken', userToken)
         .end((err, res) => {
-          expect(res.body.data).to.equal(undefined);
           expect(res.statusCode).to.equal(400);
           done();
         });

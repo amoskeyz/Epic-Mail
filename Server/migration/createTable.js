@@ -75,6 +75,17 @@ async function create() {
     VALUES($1, $2, $3, $4, $5, $6, $7)`,
     values: [date, 'things to do in life', 'i have a very big ball', 2, 3, 1, 'unread'],
   };
+  const messageSent6 = {
+    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 2, 2, 1, 'unread'],
+  };
+
+  const messageSent7 = {
+    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 1, 1, 1, 'unread'],
+  };
 
   try {
     await pool.query(createTable);
@@ -86,6 +97,8 @@ async function create() {
     await pool.query(messageSent3.text, messageSent3.values);
     await pool.query(messageSent4.text, messageSent5.values);
     await pool.query(messageSent5.text, messageSent5.values);
+    await pool.query(messageSent6.text, messageSent6.values);
+    await pool.query(messageSent7.text, messageSent7.values);
     console.log('Created tables');
   } catch (error) {
     console.log(error);
