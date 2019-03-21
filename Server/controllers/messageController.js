@@ -1,3 +1,4 @@
+import { pathToFileURL } from 'url';
 import messages from '../models/messages';
 import pool from '../config/config';
 
@@ -102,22 +103,45 @@ class messageController {
   //   });
   // }
 
-  static composeMessage(req, res) {
-    const {
-      subject, message, parentMessageId, status, senderId, receiverId,
-    } = req.body;
-    const id = messages.length + 1;
-    const createdOn = new Date();
-    const textObj = {
-      id, subject, message, parentMessageId, status, createdOn, senderId, receiverId,
-    };
-    messages.push(textObj);
-    return res.status(200).json({
-      status: 200,
-      data: {
-        id, createdOn, subject, message, parentMessageId, status,
-      },
-    });
+  static async composeMessage(req, res) {
+    const { subject, message, email } = req.body;
+    const id = req.decoder;
+    try {
+      const response = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+      if (response.rows[0] === undefined) {
+        return res.status(409).json({
+          status: 'Error',
+          data: 'User does not exist',
+        });
+      }
+      const receiverid = response.rows[0].id;
+      const createdon = new Date();
+      const senderid = id;
+      const status = 'draft';
+      const messager = {
+        text: `INSERT INTO messages(  
+      createdon,
+      subject,
+      email,
+      message,
+      parentmessageid,
+      receiverid,
+      status,
+      senderid)VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+        values: [createdon, subject, email, message, receiverid, receiverid, status, senderid],
+      };
+      const mess = await pool.query(messager);
+      return res.status(200).json({
+        status: 200,
+        data: mess.rows[0],
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        status: 500,
+        response: 'Server error',
+      });
+    }
   }
 
   static deleteMessage(req, res) {

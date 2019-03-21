@@ -25,10 +25,7 @@ const schema = {
     Joi.object().keys({
       subject: Joi.string().required(),
       message: Joi.string().required(),
-      parentMessageId: Joi.number().integer().required(),
-      receiverId: Joi.number().integer().required(),
-      senderId: Joi.number().integer().required(),
-      status: Joi.string().min(3).max(7).required(),
+      email: Joi.string().email().lowercase().required(),
     }),
 };
 

@@ -7,7 +7,7 @@ const userTable = `CREATE TABLE IF NOT EXISTS users(
   firstname text NOT NULL,
   lastname text NOT NULL,
   email text NOT NULL,
-  phonenumber integer NOT NULL,
+  phonenumber text NOT NULL,
   password text NOT NULL
   );
 `;
@@ -15,6 +15,7 @@ const messageTable = `CREATE TABLE IF NOT EXISTS messages(
   id serial PRIMARY KEY,
   createdon text NOT NULL,
   subject text NOT NULL,
+  email text NOT NULL,
   message text NOT NULL,
   receiverid integer NOT NULL,
   senderid integer NOT NULL,
@@ -35,56 +36,56 @@ async function create() {
   };
 
   const message = {
-    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 5, 4, 3, 'unread'],
+    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 'amosq@gmail.com', 5, 4, 3, 'unread'],
   };
 
   const messageSent = {
-    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 5, 1, 1, 'sent'],
+    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 'amos@gmail.com', 5, 1, 1, 'sent'],
   };
 
   const messageSent1 = {
-    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 5, 2, 1, 'sent'],
+    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 'amosww@gmail.com', 5, 2, 1, 'sent'],
   };
 
   const messageSent2 = {
-    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 5, 3, 1, 'sent'],
+    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 'amosw@gmail.com', 5, 3, 1, 'sent'],
   };
 
   const messageSent3 = {
-    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 3, 3, 1, 'unread'],
+    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 'amosuw@gmail.com', 3, 3, 1, 'unread'],
   };
 
   const messageSent4 = {
-    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 2, 3, 1, 'unread'],
+    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 'amose@gmail.com', 2, 3, 1, 'unread'],
   };
 
   const messageSent5 = {
-    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 2, 3, 1, 'unread'],
+    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 'amosr@gmail.com', 2, 3, 1, 'unread'],
   };
   const messageSent6 = {
-    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 2, 2, 1, 'unread'],
+    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 'amostt@gmail.com', 2, 2, 1, 'unread'],
   };
 
   const messageSent7 = {
-    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 1, 1, 1, 'unread'],
+    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 'amost@gmail.com', 1, 1, 1, 'unread'],
   };
 
   try {

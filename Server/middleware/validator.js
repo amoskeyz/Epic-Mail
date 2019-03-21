@@ -56,11 +56,11 @@ class validate {
 
   static validateMessage(req, res, next) {
     const {
-      subject, message, parentMessageId, status, senderId, receiverId,
+      subject, message, email,
     } = req.body;
 
     const newMessage = {
-      subject, message, parentMessageId, status, senderId, receiverId,
+      subject, message, email,
     };
 
     joi.validate(newMessage, schema.Messageschema, (err) => {

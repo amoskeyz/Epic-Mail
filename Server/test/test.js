@@ -201,7 +201,7 @@ describe('Epic Test', () => {
         });
     });
 
-    it('should not create/send a message with invalid data', (done) => {
+    it('should not create/send a message with invalid email', (done) => {
       chai.request(app)
         .post('/api/v1/auth/compose')
         .set('authtoken', userToken)
