@@ -58,6 +58,24 @@ async function create() {
     values: [date, 'things to do in life', 'i have a very big ball', 5, 3, 1, 'sent'],
   };
 
+  const messageSent3 = {
+    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 3, 3, 1, 'unread'],
+  };
+
+  const messageSent4 = {
+    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 2, 3, 1, 'unread'],
+  };
+
+  const messageSent5 = {
+    text: `INSERT INTO messages (createdon, subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7)`,
+    values: [date, 'things to do in life', 'i have a very big ball', 2, 3, 1, 'unread'],
+  };
+
   try {
     await pool.query(createTable);
     await pool.query(user.text, user.values);
@@ -65,6 +83,9 @@ async function create() {
     await pool.query(messageSent.text, messageSent.values);
     await pool.query(messageSent1.text, messageSent1.values);
     await pool.query(messageSent2.text, messageSent2.values);
+    await pool.query(messageSent3.text, messageSent3.values);
+    await pool.query(messageSent4.text, messageSent5.values);
+    await pool.query(messageSent5.text, messageSent5.values);
     console.log('Created tables');
   } catch (error) {
     console.log(error);
