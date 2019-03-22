@@ -23,7 +23,13 @@ const messageTable = `CREATE TABLE IF NOT EXISTS messages(
   status text NOT NULL
 );
 `;
-
+// const groupTable = `CREATE TABLE IF NOT EXISTS groups(
+//   id serial PRIMARY KEY,
+//   name text NOT NULL,
+//   role text NOT NULL,
+//   roleid integer NOT NULL
+// );
+// `;
 
 const date = new Date().toString();
 
@@ -88,6 +94,12 @@ async function create() {
     values: [date, 'things to do in life', 'i have a very big ball', 'amost@gmail.com', 1, 1, 1, 'unread'],
   };
 
+  // const group = {
+  //   text: `INSERT INTO groups (name, roleid, role) 
+  //   VALUES($1, $2, $3)`,
+  //   values: ['t67', 1, 'unread'],
+  // };
+
   try {
     await pool.query(createTable);
     await pool.query(user.text, user.values);
@@ -100,7 +112,8 @@ async function create() {
     await pool.query(messageSent5.text, messageSent5.values);
     await pool.query(messageSent6.text, messageSent6.values);
     await pool.query(messageSent7.text, messageSent7.values);
-    console.log('Created tables');
+    // await pool.query(group.text, group.values);
+    console.log('Tables Successfullly Created');
   } catch (error) {
     console.log(error);
   }

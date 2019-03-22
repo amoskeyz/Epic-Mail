@@ -27,6 +27,11 @@ const schema = {
       message: Joi.string().required(),
       email: Joi.string().email().lowercase().required(),
     }),
+
+  // groupSchema:
+  //   Joi.object().keys({
+  //     name: Joi.string().trim().min(2).required(),
+  //   }),
 };
 
 export default schema;

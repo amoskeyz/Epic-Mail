@@ -8,7 +8,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api/v1/', router);
+app.use('/api/v2/', router);
 
 app.all('/*', (req, res) => res.status(404).json({
   status: 404,
