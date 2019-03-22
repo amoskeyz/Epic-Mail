@@ -21,6 +21,17 @@ describe('Epic Test', () => {
         });
     });
   });
+  describe('GET/message/sent', () => {
+    it('should not get a specific message with unauthorized id', (done) => {
+      chai.request(app)
+        .get('/api/v1/messages/2')
+        .set('authtoken', null)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(401);
+          done();
+        });
+    });
+  });
 
   describe('GET/auth/signup', () => {
     it('should return page not found on invalid route', (done) => {
@@ -60,7 +71,7 @@ describe('Epic Test', () => {
         .post('/api/v1/auth/signup')
         .send(users[0])
         .end((err, res) => {
-          expect(res.statusCode).to.equal(409);
+          expect(res.statusCode).to.equal(208);
           done();
         });
     });
@@ -92,7 +103,7 @@ describe('Epic Test', () => {
         .post('/api/v1/auth/signin')
         .send(users[4])
         .end((err, res) => {
-          expect(res.statusCode).to.equal(200);
+          expect(res.statusCode).to.equal(202);
           userToken = res.body.data.token;
           done();
         });
@@ -139,7 +150,7 @@ describe('Epic Test', () => {
   describe('GET/messages/:id', () => {
     it('should respond with a specific message on valid message id', (done) => {
       chai.request(app)
-        .get('/api/v1/messages/2')
+        .get('/api/v1/messages/3')
         .set('authtoken', userToken)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
@@ -149,10 +160,10 @@ describe('Epic Test', () => {
 
     it('should response with an error on non existing id', (done) => {
       chai.request(app)
-        .get('/api/v1/messages/3')
+        .get('/api/v1/messages/53')
         .set('authtoken', userToken)
         .end((err, res) => {
-          expect(res.statusCode).to.equal(400);
+          expect(res.statusCode).to.equal(404);
           done();
         });
     });
@@ -167,26 +178,14 @@ describe('Epic Test', () => {
           done();
         });
     });
-
-    it('should not get a specific message with unauthorized id', (done) => {
+    it('should respond with an error with undefined token', (done) => {
       chai.request(app)
-        .get('/api/v1/messages/2')
-        .set('authtoken', null)
+        .get('/api/v1/messages/98')
         .end((err, res) => {
-          expect(res.body.data).to.equal(undefined);
           expect(res.statusCode).to.equal(401);
           done();
         });
     });
-  });
-
-  it('should respond with an error with undefined token', (done) => {
-    chai.request(app)
-      .get('/api/v1/messages/98')
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        done();
-      });
   });
 
   describe('POST/compose', () => {
@@ -216,7 +215,7 @@ describe('Epic Test', () => {
   describe('DELETE/messages/:id', () => {
     it('should delete a mail that exist', (done) => {
       chai.request(app)
-        .delete('/api/v1/messages/2')
+        .delete('/api/v1/messages/3')
         .set('authtoken', userToken)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
@@ -230,7 +229,6 @@ describe('Epic Test', () => {
         .set('authtoken', userToken)
         .end((err, res) => {
           expect(res.statusCode).to.equal(404);
-          expect(res.body.status).to.equal(404);
           done();
         });
     });

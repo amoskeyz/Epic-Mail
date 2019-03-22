@@ -7,15 +7,15 @@ class authenticator {
   static authenticateUser(req, res, next) {
     const token = req.headers.authtoken;
     if (!token) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Bad Request',
+      return res.status(401).json({
+        status: 'Error',
+        error: 'Authorization Error',
       });
     }
     const verify = jwt.verify(token, process.env.token, (err, decoded) => {
       if (err) {
         return res.status(401).json({
-          status: 401,
+          status: 'Error',
           error: 'Unauthorized user',
         });
       }

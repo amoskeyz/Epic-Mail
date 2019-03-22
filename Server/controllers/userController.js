@@ -18,15 +18,15 @@ class userController {
       const output = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
       const returnemail = output.rows[0];
       if (returnemail !== undefined) {
-        return res.status(409).json({
-          status: 409,
+        return res.status(208).json({
+          status: '208',
           data: 'User already exist',
         });
       }
     } catch (err) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Bad Request',
+      return res.status(500).json({
+        status: 500,
+        error: 'Server Error',
       });
     }
 
@@ -57,19 +57,19 @@ class userController {
       const output = await pool.query('SELECT * FROM users WHERE (email = $1 AND password  = $2)', [email, password]);
       if (output.rows[0] === undefined) {
         return res.status(400).json({
-          status: 400,
+          status: '400',
           error: 'Invalid User',
         });
       }
       const { id } = output.rows[0];
-      return res.status(200).json({
-        status: 200,
+      return res.status(202).json({
+        status: '202',
         data: { token: token({ id }) },
       });
     } catch (err) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Bad Request',
+      return res.status(500).json({
+        status: 500,
+        error: 'Server Error',
       });
     }
   }

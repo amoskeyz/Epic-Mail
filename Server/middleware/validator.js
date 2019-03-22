@@ -15,7 +15,7 @@ class validate {
       if (err) {
         return res.status(400).json({
           status: 400,
-          error: 'one more entry required',
+          error: err.details[0].message,
         });
       }
       return next();
@@ -35,7 +35,7 @@ class validate {
       if (err) {
         return res.status(400).json({
           status: 400,
-          error: err,
+          error: err.details[0].message,
         });
       }
       return next();
@@ -47,7 +47,7 @@ class validate {
       if (err) {
         return res.status(400).json({
           status: 400,
-          error: err,
+          error: err.details[0].message,
         });
       }
       return next();
@@ -58,7 +58,6 @@ class validate {
     const {
       subject, message, email,
     } = req.body;
-
     const newMessage = {
       subject, message, email,
     };
@@ -67,7 +66,7 @@ class validate {
       if (err) {
         return res.status(400).json({
           status: 400,
-          error: err,
+          error: err.details[0].message,
         });
       }
       return next();
