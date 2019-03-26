@@ -72,6 +72,26 @@ class validate {
       return next();
     });
   }
+
+  static validateGroup(req, res, next) {
+    const {
+      name,
+    } = req.body;
+
+    const group = {
+      name,
+    };
+
+    joi.validate(group, schema.groupSchema, (err) => {
+      if (err) {
+        return res.status(400).json({
+          status: 400,
+          error: err.details[0].message,
+        });
+      }
+      return next();
+    });
+  }
 }
 
 export default validate;

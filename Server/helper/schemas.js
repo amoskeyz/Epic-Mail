@@ -28,10 +28,10 @@ const schema = {
       email: Joi.string().email().lowercase().required(),
     }),
 
-  // groupSchema:
-  //   Joi.object().keys({
-  //     name: Joi.string().trim().min(2).required(),
-  //   }),
+  groupSchema:
+    Joi.object().keys({
+      name: Joi.string().trim().min(2).required(),
+    }),
 };
 
 export default schema;
