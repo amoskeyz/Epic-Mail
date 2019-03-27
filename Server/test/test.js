@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaihttp from 'chai-http';
 import app from '../app';
 import users from './data/user';
-// import group from './group';
+import group from './data/group';
 import text from './data/text';
 
 let userToken;
@@ -234,36 +234,26 @@ describe('Epic Test', () => {
         });
     });
   });
-
-  // describe('POST/group', () => {
-  //   it('should signup a user on correct input', (done) => {
-  //     chai.request(app)
-  //       .post('/api/v1/group')
-  //       .send(group[0])
-  //       .end((err, res) => {
-  //         expect(res.statusCode).to.equal(201);
-  //         done();
-  //       });
-  //   });
-
-  //   it('should return an error on bad input', (done) => {
-  //     chai.request(app)
-  //       .post('/api/v1/group')
-  //       .send(group[1])
-  //       .end((err, res) => {
-  //         expect(res.statusCode).to.equal(400);
-  //         done();
-  //       });
-  //   });
-
-  //   it('should return an error when a user attempts to sign-up with the same email twice', (done) => {
-  //     chai.request(app)
-  //       .post('/api/v1/group')
-  //       .send(group[0])
-  //       .end((err, res) => {
-  //         expect(res.statusCode).to.equal(208);
-  //         done();
-  //       });
-  //   });
-  // });
+  describe('POST/group', () => {
+    it('should create a group', (done) => {
+      chai.request(app)
+        .post('/api/v2/group')
+        .set('authtoken', userToken)
+        .send(group[0])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(201);
+          done();
+        });
+    });
+    it('should return an error on invalid input', (done) => {
+      chai.request(app)
+        .post('/api/v2/group')
+        .set('authtoken', userToken)
+        .send(group[1])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(400);
+          done();
+        });
+    });
+  });
 });

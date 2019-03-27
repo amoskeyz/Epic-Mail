@@ -1,7 +1,7 @@
 import express from 'express';
 import userController from '../controllers/userController';
 import messageController from '../controllers/messageController';
-//import groupController from '../controllers/groupController';
+import groupController from '../controllers/groupController';
 import validator from '../middleware/validator';
 import authenticator from '../middleware/authentication';
 
@@ -17,6 +17,6 @@ router.get('/messages/sent', authenticator.authenticateUser, messageController.s
 router.get('/messages/:id', validator.validateid, authenticator.authenticateUser, messageController.specificMessage);
 router.post('/messages', authenticator.authenticateUser, validator.validateMessage, messageController.composeMessage);
 router.delete('/messages/:id', authenticator.authenticateUser, messageController.deleteMessage);
-// router.post('/group', authenticator.authenticateUser, validator.validateGroup, groupController.newGroup);
+router.post('/group', authenticator.authenticateUser, validator.validateGroup, groupController.createGroup);
 
 export default router;
