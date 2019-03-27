@@ -97,7 +97,7 @@ async function create() {
   const group = {
     text: `INSERT INTO groups (name, roleid, role) 
     VALUES($1, $2, $3)`,
-    values: ['Old school 2016', 1, 'Owner'],
+    values: ['Old school 2016', 1, 'Admin'],
   };
 
   try {

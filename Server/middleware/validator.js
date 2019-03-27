@@ -13,9 +13,10 @@ class validate {
 
     joi.validate(user, schema.Registerschema, (err) => {
       if (err) {
+        const error = err.details[0].message;
         return res.status(400).json({
           status: 400,
-          error: err.details[0].message,
+          error: error.replace(/"/gi, ''),
         });
       }
       return next();
