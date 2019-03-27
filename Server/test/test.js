@@ -111,7 +111,7 @@ describe('Epic Test', () => {
     });
   });
 
-  describe('GET/message/received', () => {
+  describe('GET/messages', () => {
     it('should fetch all received emails for a user', (done) => {
       chai.request(app)
         .get('/api/v2/messages')
@@ -234,7 +234,16 @@ describe('Epic Test', () => {
         });
     });
   });
-  describe('POST/group', () => {
+  describe('Groups', () => {
+    it('should not get a group that does not exist', (done) => {
+      chai.request(app)
+        .get('/api/v2/groups')
+        .set('authtoken', userToken)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(404);
+          done();
+        });
+    });
     it('should create a group', (done) => {
       chai.request(app)
         .post('/api/v2/group')
@@ -252,6 +261,15 @@ describe('Epic Test', () => {
         .send(group[1])
         .end((err, res) => {
           expect(res.statusCode).to.equal(400);
+          done();
+        });
+    });
+    it('should get all groups', (done) => {
+      chai.request(app)
+        .get('/api/v2/groups')
+        .set('authtoken', userToken)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
           done();
         });
     });

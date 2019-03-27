@@ -19,7 +19,7 @@ class groupController {
       });
     }
     const roleId = idd;
-    const role = 'Owner';
+    const role = 'Admin';
     const group = {
       text: `INSERT INTO groups(
             name,
@@ -34,6 +34,28 @@ class groupController {
       status: 201,
       data: { id, name, role },
     });
+  }
+
+  static async groups(req, res) {
+    const id = req.decoder;
+    try {
+      const response = await pool.query('select id, name, role FROM groups where roleid = $1', [id]);
+      if (response.rows[0] === undefined) {
+        return res.status(404).json({
+          status: 401,
+          Error: 'You do not own or belong to any group',
+        });
+      }
+      return res.status(200).json({
+        status: 200,
+        data: (response.rows),
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 500,
+        error: 'server error',
+      });
+    }
   }
 }
 

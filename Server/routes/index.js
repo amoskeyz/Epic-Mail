@@ -18,5 +18,5 @@ router.get('/messages/:id', validator.validateid, authenticator.authenticateUser
 router.post('/messages', authenticator.authenticateUser, validator.validateMessage, messageController.composeMessage);
 router.delete('/messages/:id', authenticator.authenticateUser, messageController.deleteMessage);
 router.post('/group', authenticator.authenticateUser, validator.validateGroup, groupController.createGroup);
-
+router.get('/groups', authenticator.authenticateUser, groupController.groups);
 export default router;

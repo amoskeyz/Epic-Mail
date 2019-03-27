@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/v2/', router);
 
-app.all('/*', (req, res) => res.status(404).json({
+app.all('*', (req, res) => res.status(404).json({
   status: 404,
   error: 'Page not found',
 }));
