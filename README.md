@@ -13,43 +13,48 @@ Create a git repo on your local machine by cloning this repo from the dashboard.
 # Prerequisites
 What things you need to install the software and how to install them
 
-# nodejs
+### nodejs
 go to node.js website and install node
-
+`
 go here https://nodejs.org/en/download/
+`
 download node for your platform and install
 
-# Sublime Text 3
+### Sublime Text 3
 go to the sublime text official website and download sublime
-
+`
 go here https://www.sublimetext.com/3
+`
 download for your platform and install
 
-# Google Chrome
+### Google Chrome
 go to the chrome official website and download chrome
-
+`
 go here https://www.google.com/chrome/
+`
 install all the dependencies and dev dependencies in the package.json file using npm install (name of package)
 
-# Post MAN
+### Post MAN
 go to the post man Official website and download postman
-
+`
 go here https://www.getpostman.com/
+`
 downoad for your platform and install
 
-# Running the tests
+### Running the tests
 also run test writen in mocha by running the command
 
 npm run test
-# Coding Style
+### Coding Style
 The coding style used is Airbnb-base from eslint run command against any file for this styling
 
 npx eslint code.js
-# Deployment
+### Deployment
 deploy this on Heroku
-
+```
 heroku.com
-# Built With
+```
+### Built With
 Node Sublime Chrome
 
 # Authors
