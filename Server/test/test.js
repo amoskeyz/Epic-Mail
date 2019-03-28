@@ -11,7 +11,7 @@ const { expect } = chai;
 chai.use(chaihttp);
 
 describe('Epic Test', () => {
-  describe('/display welcome message', () => {
+  describe('/Display welcome message', () => {
     it('display the welcome messqge', (done) => {
       chai.request(app)
         .get('/api/v2/')
@@ -22,19 +22,8 @@ describe('Epic Test', () => {
         });
     });
   });
-  describe('GET/message/sent', () => {
-    it('should not get a specific message with unauthorized id', (done) => {
-      chai.request(app)
-        .get('/api/v2/messages/2')
-        .set('authtoken', null)
-        .end((err, res) => {
-          expect(res.statusCode).to.equal(401);
-          done();
-        });
-    });
-  });
 
-  describe('POST/auth/signup', () => {
+  describe('Route', () => {
     it('should return page not found on invalid route', (done) => {
       chai.request(app)
         .get('/api/v2/auth/signup')
@@ -45,7 +34,7 @@ describe('Epic Test', () => {
     });
   });
 
-  describe('POST/auth/signup', () => {
+  describe('Signup', () => {
     it('should signup a user on correct input', (done) => {
       chai.request(app)
         .post('/api/v2/auth/signup')
@@ -78,7 +67,7 @@ describe('Epic Test', () => {
     });
   });
 
-  describe('POST/auth/signin', () => {
+  describe('Login', () => {
     it('should not signin a user on incorrect input', (done) => {
       chai.request(app)
         .post('/api/v2/auth/login')
@@ -111,7 +100,7 @@ describe('Epic Test', () => {
     });
   });
 
-  describe('GET/messages', () => {
+  describe('Messages', () => {
     it('should fetch all received emails for a user', (done) => {
       chai.request(app)
         .get('/api/v2/messages')
@@ -122,9 +111,7 @@ describe('Epic Test', () => {
           done();
         });
     });
-  });
 
-  describe('GET/message/sent', () => {
     it('should fetch all sent emails for a user', (done) => {
       chai.request(app)
         .get('/api/v2/messages')
@@ -134,9 +121,7 @@ describe('Epic Test', () => {
           done();
         });
     });
-  });
 
-  describe('GET/message/unread', () => {
     it('should fetch all unread received emails for a user', (done) => {
       chai.request(app)
         .get('/api/v2/messages/unread')
@@ -146,9 +131,7 @@ describe('Epic Test', () => {
           done();
         });
     });
-  });
 
-  describe('GET/messages/:id', () => {
     it('should respond with a specific message on valid message id', (done) => {
       chai.request(app)
         .get('/api/v2/messages/3')
@@ -179,6 +162,7 @@ describe('Epic Test', () => {
           done();
         });
     });
+
     it('should respond with an error with undefined token', (done) => {
       chai.request(app)
         .get('/api/v2/messages/98')
@@ -187,9 +171,7 @@ describe('Epic Test', () => {
           done();
         });
     });
-  });
 
-  describe('POST/compose', () => {
     it('should create/send a message with valid data', (done) => {
       chai.request(app)
         .post('/api/v2/messages')
@@ -211,9 +193,7 @@ describe('Epic Test', () => {
           done();
         });
     });
-  });
 
-  describe('DELETE/messages/:id', () => {
     it('should delete a mail that exist', (done) => {
       chai.request(app)
         .delete('/api/v2/messages/3')
@@ -234,6 +214,7 @@ describe('Epic Test', () => {
         });
     });
   });
+
   describe('Groups', () => {
     it('should not get a group that does not exist', (done) => {
       chai.request(app)
@@ -244,6 +225,7 @@ describe('Epic Test', () => {
           done();
         });
     });
+
     it('should create a group', (done) => {
       chai.request(app)
         .post('/api/v2/group')
@@ -254,6 +236,7 @@ describe('Epic Test', () => {
           done();
         });
     });
+
     it('should return an error on invalid input', (done) => {
       chai.request(app)
         .post('/api/v2/group')
@@ -264,12 +247,35 @@ describe('Epic Test', () => {
           done();
         });
     });
+
     it('should get all groups', (done) => {
       chai.request(app)
         .get('/api/v2/groups')
         .set('authtoken', userToken)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+
+    it('should edit the name of a group', (done) => {
+      chai.request(app)
+        .patch('/api/v2/groups/2/name')
+        .set('authtoken', userToken)
+        .send(group[2])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+  });
+  describe('Authentication', () => {
+    it('should not get a specific message with unauthorized id', (done) => {
+      chai.request(app)
+        .post('/api/v2/messages')
+        .set('authtoken', 'jhosjfhaojfhoa')
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(401);
           done();
         });
     });

@@ -57,6 +57,32 @@ class groupController {
       });
     }
   }
+
+  static async updateGroup(req, res) {
+    const id = req.decoder;
+    let { name } = req.body;
+    const groupId = req.params.id;
+    name = name.trim();
+    try {
+      const response = await pool.query('select * from groups where roleid = $1 AND id = $2', [id, groupId]);
+      if (response.rows[0] === undefined) {
+        return res.status(404).json({
+          status: 404,
+          Error: 'Group does not exist',
+        });
+      }
+      const output = await pool.query('UPDATE groups SET name = $1 WHERE (roleid = $2 AND id = $3) RETURNING name ', [name, id, groupId]);
+      return res.status(200).json({
+        status: 'successful',
+        data: output.rows[0],
+      });
+    } catch (err) {
+      return res.status(500).json({
+        ststus: 500,
+        Error: 'server error',
+      });
+    }
+  }
 }
 
 export default groupController;
