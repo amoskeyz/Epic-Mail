@@ -24,10 +24,11 @@ const messageTable = `CREATE TABLE IF NOT EXISTS messages(
 );
 `;
 const groupTable = `CREATE TABLE IF NOT EXISTS groups(
-  id serial PRIMARY KEY,
-  name text NOT NULL,
+  id serial,
+  name varchar(255) NOT NULL,
   role text NOT NULL,
-  roleid integer NOT NULL
+  roleid int NOT NULL,
+  PRIMARY KEY (id)
 );
 `;
 
