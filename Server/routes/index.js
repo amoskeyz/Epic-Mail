@@ -20,4 +20,5 @@ router.delete('/messages/:id', authenticator.authenticateUser, messageController
 router.post('/group', authenticator.authenticateUser, validator.validateGroup, groupController.createGroup);
 router.get('/groups', authenticator.authenticateUser, groupController.groups);
 router.patch('/groups/:id/name', authenticator.authenticateUser, groupController.updateGroup);
+router.delete('/groups/:id', authenticator.authenticateUser, groupController.deleteGroup);
 export default router;

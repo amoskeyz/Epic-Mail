@@ -268,6 +268,26 @@ describe('Epic Test', () => {
           done();
         });
     });
+
+    it('should delete a group that exist', (done) => {
+      chai.request(app)
+        .delete('/api/v2/groups/2')
+        .set('authtoken', userToken)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+
+    it('should respond with an error when trying to delete a non existing group', (done) => {
+      chai.request(app)
+        .delete('/api/v2/groups/3')
+        .set('authtoken', userToken)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(404);
+          done();
+        });
+    });
   });
   describe('Authentication', () => {
     it('should not get a specific message with unauthorized id', (done) => {
