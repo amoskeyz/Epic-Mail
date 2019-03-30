@@ -171,6 +171,37 @@ class groupController {
       });
     }
   }
+
+  static async deleteUser(req, res) {
+    const adminId = req.decoder;
+    const { groupId, userId } = req.params;
+    try {
+      const isExist = await pool.query('select * from users where id = $1', [userId]);
+      if (isExist.rows[0].id === undefined) {
+        return res.status(404).json({
+          status: 404,
+          Message: 'user does not exist',
+        });
+      }
+      const response = await pool.query('select * from members where group_id = $1 AND user_id = $2 AND admin_id = $3', [groupId, userId, adminId]);
+      if (response.rows[0] === undefined) {
+        return res.status(404).json({
+          status: 404,
+          Message: 'user not found in group',
+        });
+      }
+      await pool.query('delete from members where group_id = $1 AND user_id = $2 AND admin_id = $3', [groupId, userId, adminId]);
+      return res.status(200).json({
+        status: 200,
+        Message: 'Delete Successful',
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 500,
+        Error: 'Server Error',
+      });
+    }
+  }
 }
 
 export default groupController;
