@@ -114,6 +114,63 @@ class groupController {
       });
     }
   }
+
+  static async addUser(req, res) {
+    const adminId = req.decoder;
+    const groupId = req.params.id;
+    const { email } = req.body;
+    try {
+      const response = await pool.query('select * from users where email = $1', [email]);
+      if (response.rows[0] === undefined) {
+        return res.status(404).json({
+          status: 404,
+          Error: 'User does not exist',
+        });
+      }
+
+      const userId = response.rows[0].id;
+      const isExist = await pool.query('select * from members where user_id = $1 AND group_id = $2', [userId, groupId]);
+      if (isExist.rows[0] !== undefined) {
+        return res.status(404).json({
+          status: 404,
+          Error: 'Already a member',
+        });
+      }
+
+      if (userId === adminId) {
+        return res.status(404).json({
+          status: 404,
+          Error: 'Cannot add self',
+        });
+      }
+
+      const userRole = 'member';
+
+      const addUser = {
+        text: `INSERT INTO members(
+              user_id,
+              group_id,
+              user_role,
+              admin_id
+          )VALUES($1,$2,$3, $4) RETURNING *`,
+        values: [userId, groupId, userRole, adminId],
+      };
+
+      const groupArray = await pool.query(addUser);
+
+      const { id } = groupArray.rows[0];
+
+      return res.status(201).json({
+        status: 201,
+        data: { id, userId, userRole },
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 500,
+        Error: 'Server Error',
+      });
+    }
+  }
 }
 
 export default groupController;

@@ -4,8 +4,8 @@
   "description": "This is a web application that allows users to communicate by sending mails to one another",
   "main": "index.js",
   "scripts": {
-    "create": "babel-node Server/migration/createTable.js",
-    "drop": "babel-node Server/migration/dropTable.js",
+    "create": "cross-env NODE_ENV=test babel-node Server/migration/createTable.js",
+    "drop": " cross-env NODE_ENV=test babel-node Server/migration/dropTable.js",
     "start": "rimraf dist/ && babel ./Server -d dist && node dist/app.js",
     "startdev": "nodemon --exec babel-node Server/app.js",
     "test": "npm run drop && npm run create && cross-env NODE_ENV=test nyc --require @babel/register mocha Server/test --exit",

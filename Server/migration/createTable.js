@@ -31,11 +31,20 @@ const groupTable = `CREATE TABLE IF NOT EXISTS groups(
   PRIMARY KEY (id)
 );
 `;
+const membersTable = `CREATE TABLE IF NOT EXISTS members(
+  id serial,
+  user_id int not null,
+  group_id int not null,
+  admin_id int not null,
+  user_role text not null,
+  PRIMARY KEY (id)
+  );
+  `;
 
 const date = new Date().toString();
 
 async function create() {
-  const createTable = `${userTable}${messageTable}${groupTable}`;
+  const createTable = `${userTable}${messageTable}${groupTable}${membersTable}`;
   const user = {
     text: `INSERT INTO users (firstname, lastname, email, phonenumber, password) 
     VALUES($1, $2, $3, $4, $5)`,
@@ -114,7 +123,7 @@ async function create() {
     await pool.query(messageSent6.text, messageSent6.values);
     await pool.query(messageSent7.text, messageSent7.values);
     await pool.query(group.text, group.values);
-    console.log('Tables Successfullly Created');
+    console.log('Tables Successfully Created');
   } catch (error) {
     console.log(error);
   }
