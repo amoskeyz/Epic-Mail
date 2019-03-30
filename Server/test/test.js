@@ -332,6 +332,16 @@ describe('Epic Test', () => {
           done();
         });
     });
+
+    it('should delete a user from a specific group', (done) => {
+      chai.request(app)
+        .delete('/api/v2/groups/2/users/1')
+        .set('authtoken', userToken)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
   });
   describe('Authentication', () => {
     it('should not get a specific message with unauthorized id', (done) => {
