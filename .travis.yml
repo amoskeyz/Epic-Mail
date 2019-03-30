@@ -19,7 +19,4 @@ script:
 
 after_script:
   - npm run coverage
-
-after_script:
-  - ./cc-test-reporter after-build -t "lcov" --exit-code $TRAVIS_TEST_RESULT
   

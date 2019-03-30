@@ -93,6 +93,22 @@ class validate {
       return next();
     });
   }
+
+  static validateUser(req, res, next) {
+    const { email } = req.body;
+
+    const user = { email };
+
+    joi.validate(user, schema.uSchema, (err) => {
+      if (err) {
+        return res.status(400).json({
+          status: 400,
+          error: err.details[0].message,
+        });
+      }
+      return next();
+    });
+  }
 }
 
 export default validate;

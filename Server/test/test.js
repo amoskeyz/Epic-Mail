@@ -288,6 +288,50 @@ describe('Epic Test', () => {
           done();
         });
     });
+
+    it('should create a new group', (done) => {
+      chai.request(app)
+        .post('/api/v2/group')
+        .set('authtoken', userToken)
+        .send(group[0])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(201);
+          done();
+        });
+    });
+
+    it('should add users to the new group', (done) => {
+      chai.request(app)
+        .post('/api/v2/groups/2/users')
+        .set('authtoken', userToken)
+        .send(group[3])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(201);
+          done();
+        });
+    });
+
+    it('should not add a users that already exist in a group', (done) => {
+      chai.request(app)
+        .post('/api/v2/groups/2/users')
+        .set('authtoken', userToken)
+        .send(group[3])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(404);
+          done();
+        });
+    });
+
+    it('should not add a user with invalid email', (done) => {
+      chai.request(app)
+        .post('/api/v2/groups/2/users')
+        .set('authtoken', userToken)
+        .send(group[4])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(400);
+          done();
+        });
+    });
   });
   describe('Authentication', () => {
     it('should not get a specific message with unauthorized id', (done) => {

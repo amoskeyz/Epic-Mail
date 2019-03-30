@@ -8,7 +8,14 @@ const group = [
     },
     {
         "name": "RCCG",
+    },
+    {
+        "email": "amoserve@gmail.com",
+    },
+    {
+        "email": "amoserve2gmail.com",
     }
+
 ];
 
 export default group;
