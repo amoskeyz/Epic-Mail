@@ -32,6 +32,11 @@ const schema = {
     Joi.object().keys({
       name: Joi.string().trim().min(2).required(),
     }),
+
+  uSchema:
+    Joi.object().keys({
+      email: Joi.string().email().lowercase().required(),
+    }),
 };
 
 export default schema;
