@@ -1,12 +1,10 @@
-import token from '../helper/token';
-import messages from '../models/messages';
 import pool from '../config/config';
 
 class messageController {
   static async receivedMessages(req, res) {
     const id = req.decoder;
     try {
-      const response = await pool.query('SELECT createdon, subject, message, parentmessageid, status FROM messages where receiverid = $1', [id]);
+      const response = await pool.query('SELECT created_on, subject, message, parentmessageid, status FROM messages where receiverid = $1', [id]);
       return res.status(200).json({
         status: 200,
         data: response.rows,
@@ -44,7 +42,7 @@ class messageController {
   static async sentMessages(req, res) {
     const id = req.decoder;
     try {
-      const response = await pool.query('SELECT createdon, subject, message, parentmessageid, status FROM messages where senderid = $1', [id]);
+      const response = await pool.query('SELECT created_on, subject, message, parentmessageid, status FROM messages where senderid = $1', [id]);
       if (response.rows[0] === undefined) {
         return res.status(404).json({
           status: 404,
@@ -90,7 +88,7 @@ class messageController {
 
   static async composeMessage(req, res) {
     const { subject, message, email } = req.body;
-    const id = req.decoder;
+    const userId = req.decoder;
     try {
       const response = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
       if (response.rows[0] === undefined) {
@@ -100,22 +98,46 @@ class messageController {
         });
       }
       const receiverid = response.rows[0].id;
-      const createdon = new Date();
-      const senderid = id;
+      // const createdon = new Date();
+      const senderid = userId;
       const status = 'sent';
       const messager = {
         text: `INSERT INTO messages(  
-      createdon,
       subject,
-      email,
       message,
       parentmessageid,
       receiverid,
       status,
-      senderid)VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
-        values: [createdon, subject, email, message, receiverid, receiverid, status, senderid],
+      senderid)VALUES($1, $2, $3, $4, $5, $6) RETURNING *`,
+        values: [subject, message, receiverid, receiverid, status, senderid],
       };
       const mess = await pool.query(messager);
+      const { id } = mess.rows[0];
+
+      const inbox = {
+        text: `INSERT INTO inbox(  
+      message_id,
+      subject,
+      message,
+      parentmessageid,
+      receiverid,
+      status,
+      senderid)VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+        values: [id, subject, message, receiverid, receiverid, 'Unread', senderid],
+      };
+      const sent = {
+        text: `INSERT INTO sent(  
+      message_id,
+      subject,
+      message,
+      parentmessageid,
+      receiverid,
+      status,
+      senderid)VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+        values: [id, subject, message, receiverid, receiverid, 'sent', senderid],
+      };
+      await pool.query(inbox);
+      await pool.query(sent);
       return res.status(200).json({
         status: 200,
         data: mess.rows[0],
@@ -132,20 +154,22 @@ class messageController {
     const messageId = Number(req.params.id);
     const id = req.decoder;
     try {
-      const response = await pool.query('SELECT * FROM messages WHERE (senderid = $1 AND id = $2)', [id, messageId]);
+      const response = await pool.query('SELECT senderid, receiverid FROM messages WHERE (senderid = $1 OR receiverid = $2) AND id = $3', [id, id, messageId]);
       if (response.rows[0] === undefined) {
         return res.status(404).json({
           status: 404,
           data: 'Message does not exist',
         });
       }
-      const del = await pool.query('DELETE FROM messages WHERE (id = $1 AND senderid = $2)', [messageId, id]);
-      if (del.rows[0] !== undefined) {
-        return res.status(404).json({
-          satus: 404,
-          data: 'message not found',
+      const { receiverid } = response.rows[0];
+      if (receiverid === id) {
+        await pool.query('DELETE FROM inbox WHERE (message_id = $1 AND receiverid = $2)', [messageId, id]);
+        return res.status(200).json({
+          status: 200,
+          data: 'delete successful',
         });
       }
+      await pool.query('DELETE FROM sent WHERE (message_id = $1 AND senderid = $2)', [messageId, id]);
       return res.status(200).json({
         status: 200,
         data: 'delete successful',

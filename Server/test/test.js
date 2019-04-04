@@ -134,7 +134,7 @@ describe('Epic Test', () => {
 
     it('should respond with a specific message on valid message id', (done) => {
       chai.request(app)
-        .get('/api/v2/messages/3')
+        .get('/api/v2/messages/4')
         .set('authtoken', userToken)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
@@ -196,7 +196,7 @@ describe('Epic Test', () => {
 
     it('should delete a mail that exist', (done) => {
       chai.request(app)
-        .delete('/api/v2/messages/3')
+        .delete('/api/v2/messages/4')
         .set('authtoken', userToken)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
@@ -302,7 +302,7 @@ describe('Epic Test', () => {
 
     it('should add users to the new group', (done) => {
       chai.request(app)
-        .post('/api/v2/groups/2/users')
+        .post('/api/v2/groups/3/users')
         .set('authtoken', userToken)
         .send(group[3])
         .end((err, res) => {
@@ -313,7 +313,7 @@ describe('Epic Test', () => {
 
     it('should not add a users that already exist in a group', (done) => {
       chai.request(app)
-        .post('/api/v2/groups/2/users')
+        .post('/api/v2/groups/3/users')
         .set('authtoken', userToken)
         .send(group[3])
         .end((err, res) => {
@@ -335,8 +335,63 @@ describe('Epic Test', () => {
 
     it('should delete a user from a specific group', (done) => {
       chai.request(app)
-        .delete('/api/v2/groups/2/users/1')
+        .delete('/api/v2/groups/3/users/1')
         .set('authtoken', userToken)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+
+    it('should send message to all users in a specific group', (done) => {
+      chai.request(app)
+        .post('/api/v2/groups/3/messages')
+        .set('authtoken', userToken)
+        .send(group[5])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+
+    it('should add a new user to a group', (done) => {
+      chai.request(app)
+        .post('/api/v2/groups/3/users')
+        .set('authtoken', userToken)
+        .send(group[3])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(201);
+          done();
+        });
+    });
+
+    it('should send message to all users in a specific group', (done) => {
+      chai.request(app)
+        .post('/api/v2/groups/3/messages')
+        .set('authtoken', userToken)
+        .send(group[5])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+
+    it('should add a new user to a group', (done) => {
+      chai.request(app)
+        .post('/api/v2/groups/3/users')
+        .set('authtoken', userToken)
+        .send(group[6])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(201);
+          done();
+        });
+    });
+
+    it('should send message to all users in a specific group again', (done) => {
+      chai.request(app)
+        .post('/api/v2/groups/3/messages')
+        .set('authtoken', userToken)
+        .send(group[5])
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
           done();

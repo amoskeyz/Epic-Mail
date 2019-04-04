@@ -13,9 +13,8 @@ const userTable = `CREATE TABLE IF NOT EXISTS users(
 `;
 const messageTable = `CREATE TABLE IF NOT EXISTS messages(
   id serial PRIMARY KEY,
-  createdon text NOT NULL,
+  created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   subject text NOT NULL,
-  email text NOT NULL,
   message text NOT NULL,
   receiverid integer NOT NULL,
   senderid integer NOT NULL,
@@ -23,8 +22,37 @@ const messageTable = `CREATE TABLE IF NOT EXISTS messages(
   status text NOT NULL
 );
 `;
+
+const inboxTable = `CREATE TABLE IF NOT EXISTS inbox(
+  id serial PRIMARY KEY,
+  message_id integer,
+  created_on TIMESTAMP with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  subject text NOT NULL,
+  message text NOT NULL,
+  receiverid integer NOT NULL,
+  senderid integer NOT NULL,
+  parentmessageid integer,
+  status text NOT NULL,
+  FOREIGN KEY (message_id) REFERENCES messages(id) ON DELETE CASCADE
+);
+`;
+
+const sentTable = `CREATE TABLE IF NOT EXISTS sent(
+  id serial PRIMARY KEY,
+  message_id integer,
+  created_on TIMESTAMP with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  subject text NOT NULL,
+  message text NOT NULL,
+  receiverid integer NOT NULL,
+  senderid integer NOT NULL,
+  parentmessageid integer,
+  status text NOT NULL,
+  FOREIGN KEY (message_id) REFERENCES messages(id) ON DELETE CASCADE
+);
+`;
 const groupTable = `CREATE TABLE IF NOT EXISTS groups(
   id serial,
+  created_on TIMESTAMP with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
   name varchar(255) NOT NULL,
   role text NOT NULL,
   roleid int NOT NULL,
@@ -37,71 +65,76 @@ const membersTable = `CREATE TABLE IF NOT EXISTS members(
   group_id int not null,
   admin_id int not null,
   user_role text not null,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
   );
   `;
 
-const date = new Date().toString();
 
 async function create() {
-  const createTable = `${userTable}${messageTable}${groupTable}${membersTable}`;
+  const createTable = `${userTable}${messageTable}${groupTable}${membersTable}${inboxTable}${sentTable}`;
   const user = {
     text: `INSERT INTO users (firstname, lastname, email, phonenumber, password) 
     VALUES($1, $2, $3, $4, $5)`,
     values: ['amos', 'oruaroghene', 'amoserve@gmail.com', 667, 'seven'],
   };
+  const user1 = {
+    text: `INSERT INTO users (firstname, lastname, email, phonenumber, password) 
+    VALUES($1, $2, $3, $4, $5)`,
+    values: ['Marv', 'Tina', 'amoslv@gmail.com', 667, 'seven'],
+  };
 
   const message = {
-    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 'amosq@gmail.com', 5, 4, 3, 'unread'],
+    text: `INSERT INTO messages (subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6)`,
+    values: ['things to do in life', 'i have a very big ball', 5, 4, 3, 'unread'],
   };
 
   const messageSent = {
-    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 'amos@gmail.com', 5, 1, 1, 'sent'],
+    text: `INSERT INTO messages (subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6)`,
+    values: ['things to do in life', 'i have a very big ball', 5, 1, 1, 'sent'],
   };
 
   const messageSent1 = {
-    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 'amosww@gmail.com', 5, 2, 1, 'sent'],
+    text: `INSERT INTO messages (subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6)`,
+    values: ['things to do in life', 'i have a very big ball', 5, 2, 1, 'sent'],
   };
 
   const messageSent2 = {
-    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 'amosw@gmail.com', 5, 3, 1, 'sent'],
+    text: `INSERT INTO messages (subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6)`,
+    values: ['things to do in life', 'i have a very big ball', 5, 3, 1, 'sent'],
   };
 
   const messageSent3 = {
-    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 'amosuw@gmail.com', 3, 3, 1, 'unread'],
+    text: `INSERT INTO messages (subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6)`,
+    values: ['things to do in life', 'i have a very big ball', 3, 3, 1, 'unread'],
   };
 
   const messageSent4 = {
-    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 'amose@gmail.com', 2, 3, 1, 'unread'],
+    text: `INSERT INTO messages (subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6)`,
+    values: ['things to do in life', 'i have a very big ball', 2, 3, 1, 'unread'],
   };
 
   const messageSent5 = {
-    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 'amosr@gmail.com', 2, 3, 1, 'unread'],
+    text: `INSERT INTO messages (subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6)`,
+    values: ['things to do in life', 'i have a very big ball', 2, 3, 1, 'unread'],
   };
   const messageSent6 = {
-    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 'amostt@gmail.com', 2, 2, 1, 'unread'],
+    text: `INSERT INTO messages (subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6)`,
+    values: ['things to do in life', 'i have a very big ball', 2, 2, 1, 'unread'],
   };
 
   const messageSent7 = {
-    text: `INSERT INTO messages (createdon, subject, message, email, receiverid, senderid, parentmessageid, status) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
-    values: [date, 'things to do in life', 'i have a very big ball', 'amost@gmail.com', 1, 1, 1, 'unread'],
+    text: `INSERT INTO messages (subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6)`,
+    values: ['things to do in life', 'i have a very big ball', 1, 1, 1, 'unread'],
   };
 
   const group = {
@@ -113,6 +146,7 @@ async function create() {
   try {
     await pool.query(createTable);
     await pool.query(user.text, user.values);
+    await pool.query(user1);
     await pool.query(message.text, message.values);
     await pool.query(messageSent.text, messageSent.values);
     await pool.query(messageSent1.text, messageSent1.values);

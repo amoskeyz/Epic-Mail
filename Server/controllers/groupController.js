@@ -28,8 +28,19 @@ class groupController {
         )VALUES($1,$2,$3) RETURNING *`,
       values: [name, role, roleId],
     };
+
     const groupArray = await pool.query(group);
     const { id } = groupArray.rows[0];
+    const addAdmin = {
+      text: `INSERT INTO members(
+            user_id,
+            group_id,
+            user_role,
+            admin_id
+        )VALUES($1,$2,$3, $4) RETURNING *`,
+      values: [roleId, id, 'Admin', roleId],
+    };
+    await pool.query(addAdmin);
     return res.status(201).json({
       status: 201,
       data: { id, name, role },
@@ -127,7 +138,6 @@ class groupController {
           Error: 'User does not exist',
         });
       }
-
       const userId = response.rows[0].id;
       const isExist = await pool.query('select * from members where user_id = $1 AND group_id = $2', [userId, groupId]);
       if (isExist.rows[0] !== undefined) {
@@ -136,16 +146,13 @@ class groupController {
           Error: 'Already a member',
         });
       }
-
       if (userId === adminId) {
         return res.status(404).json({
           status: 404,
           Error: 'Cannot add self',
         });
       }
-
       const userRole = 'member';
-
       const addUser = {
         text: `INSERT INTO members(
               user_id,
@@ -157,9 +164,7 @@ class groupController {
       };
 
       const groupArray = await pool.query(addUser);
-
       const { id } = groupArray.rows[0];
-
       return res.status(201).json({
         status: 201,
         data: { id, userId, userRole },
@@ -194,6 +199,63 @@ class groupController {
       return res.status(200).json({
         status: 200,
         Message: 'Delete Successful',
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 500,
+        Error: 'Server Error',
+      });
+    }
+  }
+
+  static async messageGroup(req, res) {
+    const { subject, message } = req.body;
+    const id = req.decoder;
+    const { groupId } = req.params;
+    try {
+      const resp = await pool.query('select * from members where group_id = $1 AND user_id = $2 OR admin_id = $3', [groupId, id, id]);
+      if (!resp.rows[0]) { return res.status(404).json({ status: 404, Error: 'NOT A MEMBER OF THIS GROUP' }); }
+      const response = await pool.query('select user_id from members where group_id = $1', [groupId]);
+      if (!response.rows[0]) { return res.status(404).json({ status: 404, Error: 'NO GROUP MEMBER FOUND' }); }
+      const senderid = id;
+      const status = 'unread';
+      let collect = '';
+      const index = response.rows.findIndex(add => add.user_id === id);
+      let dataObj = [];
+      if (response.rows.length > 1) {
+        for (let i = 0; i < response.rows.length; i += 1) {
+          if (i !== index) {
+            const messager = {
+              text: `INSERT INTO inbox(  
+              subject,
+              message,
+              parentmessageid,
+              receiverid,
+              status,
+              senderid)VALUES('${subject}', '${message}', ${id} ,${response.rows[i].user_id}, '${status}', ${senderid}) RETURNING *; `,
+            };
+            collect += messager.text;
+          }
+        }
+        const datass = await pool.query(collect);
+        if (response.rows.length > 2) {
+          dataObj = datass.map(arrays => arrays.rows);
+        } else dataObj = datass.rows;
+      }
+      const sender = {
+        text: `INSERT INTO sent(  
+        subject,
+        message,
+        parentmessageid,
+        receiverid,
+        status,
+        senderid)VALUES($1, $2, $3, $4, $5, $6) RETURNING *`,
+        values: [subject, message, id, id, 'Sent', senderid],
+      };
+      const send = await pool.query(sender);
+      return res.status(200).json({
+        data: dataObj,
+        sender: send.rows,
       });
     } catch (err) {
       return res.status(500).json({
