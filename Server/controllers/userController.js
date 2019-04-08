@@ -1,5 +1,5 @@
 import token from '../helper/token';
-import users from '../models/user';
+import secure from '../helper/encrypt';
 import pool from '../config/config';
 
 
@@ -14,12 +14,13 @@ class userController {
     const {
       firstname, lastname, email, password, phonenumber,
     } = req.body;
+    const passwordhash = secure.encrypt(password);
     try {
       const output = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
       const returnemail = output.rows[0];
-      if (returnemail !== undefined) {
-        return res.status(208).json({
-          status: '208',
+      if (returnemail) {
+        return res.status(400).json({
+          status: '400',
           data: 'User already exist',
         });
       }
@@ -37,7 +38,7 @@ class userController {
       email,
       phoneNumber,
       password)VALUES($1, $2, $3, $4, $5) RETURNING *`,
-      values: [firstname, lastname, email, phonenumber, password],
+      values: [firstname, lastname, email, phonenumber, passwordhash],
     };
     const userArray = await pool.query(user);
     const { id } = userArray.rows[0];
@@ -54,17 +55,23 @@ class userController {
       email, password,
     } = req.body;
     try {
-      const output = await pool.query('SELECT * FROM users WHERE (email = $1 AND password  = $2)', [email, password]);
-      if (output.rows[0] === undefined) {
+      const output = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+      if (!output.rows[0]) {
         return res.status(400).json({
           status: '400',
           error: 'Invalid User',
         });
       }
-      const { id } = output.rows[0];
-      return res.status(202).json({
-        status: '202',
-        data: { token: token({ id }) },
+      const passwordStat = secure.compare(password, output.rows[0].password);
+      if (passwordStat) {
+        const { id } = output.rows[0];
+        return res.status(202).json({
+          status: '202',
+          data: { token: token({ id }) },
+        });
+      } return res.status(400).json({
+        status: '400',
+        error: 'Incorrect Password',
       });
     } catch (err) {
       return res.status(500).json({

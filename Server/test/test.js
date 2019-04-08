@@ -61,7 +61,7 @@ describe('Epic Test', () => {
         .post('/api/v2/auth/signup')
         .send(users[0])
         .end((err, res) => {
-          expect(res.statusCode).to.equal(208);
+          expect(res.statusCode).to.equal(400);
           done();
         });
     });
