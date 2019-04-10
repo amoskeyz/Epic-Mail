@@ -1,71 +1,47 @@
 import pool from '../config/config';
+import errorResponse from '../helper/errorResponse';
+import query from '../migration/query';
+
+const { userQueries, messageQueries, groupQueries } = query;
 
 class groupController {
   static async createGroup(req, res) {
-    const idd = req.decoder;
+    const userId = req.decoder;
     const { name } = req.body;
     try {
-      const response = await pool.query('SELECT * FROM groups where name = $1', [name]);
-      if (response.rows[0] !== undefined) {
-        return res.status(400).json({
-          status: 400,
-          error: 'group already exist',
-        });
+      const response = await pool.query(groupQueries.group, [name]);
+      if (response.rows[0]) {
+        return errorResponse(400, 'Group Already Exist', res);
       }
-    } catch (err) {
-      return res.status(400).json({
-        status: 500,
-        error: 'server Error',
+      const roleId = userId;
+      const role = 'Admin';
+      const group = [name, role, roleId];
+      const groupArray = await pool.query(groupQueries.createGroup, group);
+      const { id } = groupArray.rows[0];
+      const addAdmin = [roleId, id, 'Admin', roleId];
+      await pool.query(groupQueries.addUser, addAdmin);
+      return res.status(201).json({
+        status: 201,
+        data: { id, name, role },
       });
+    } catch (err) {
+      return errorResponse(500, 'Server Error', res);
     }
-    const roleId = idd;
-    const role = 'Admin';
-    const group = {
-      text: `INSERT INTO groups(
-            name,
-            role,
-            roleid
-        )VALUES($1,$2,$3) RETURNING *`,
-      values: [name, role, roleId],
-    };
-
-    const groupArray = await pool.query(group);
-    const { id } = groupArray.rows[0];
-    const addAdmin = {
-      text: `INSERT INTO members(
-            user_id,
-            group_id,
-            user_role,
-            admin_id
-        )VALUES($1,$2,$3, $4) RETURNING *`,
-      values: [roleId, id, 'Admin', roleId],
-    };
-    await pool.query(addAdmin);
-    return res.status(201).json({
-      status: 201,
-      data: { id, name, role },
-    });
   }
 
   static async groups(req, res) {
     const id = req.decoder;
     try {
-      const response = await pool.query('select id, name, role FROM groups where roleid = $1', [id]);
-      if (response.rows[0] === undefined) {
-        return res.status(404).json({
-          status: 401,
-          Error: 'You do not own or belong to any group',
-        });
+      const response = await pool.query(groupQueries.check, [id]);
+      if (!response.rows[0]) {
+        return errorResponse(400, 'You Do Not Belong To Any Group', res);
       }
       return res.status(200).json({
         status: 200,
         data: (response.rows),
       });
     } catch (err) {
-      return res.status(500).json({
-        status: 500,
-        error: 'server error',
-      });
+      return errorResponse(500, 'Server Error', res);
     }
   }
 
@@ -75,30 +51,21 @@ class groupController {
     const groupId = req.params.id;
     name = name.trim();
     try {
-      const response = await pool.query('select * from groups where roleid = $1 AND id = $2', [id, groupId]);
-      if (response.rows[0] === undefined) {
-        return res.status(404).json({
-          status: 404,
-          Error: 'Group does not exist',
-        });
+      const response = await pool.query(groupQueries.selectGroup, [id, groupId]);
+      if (!response.rows[0]) {
+        return errorResponse(404, 'Group Does Not Exist', res);
       }
-      const respon = await pool.query('select * from groups where name = $1', [name]);
+      const respon = await pool.query(groupQueries.group, [name]);
       if (respon.rows[0] !== undefined) {
-        return res.status(404).json({
-          status: 404,
-          Error: 'Group name already exist',
-        });
+        return errorResponse(400, 'Group Name Already Exist', res);
       }
-      const output = await pool.query('UPDATE groups SET name = $1 WHERE (roleid = $2 AND id = $3) RETURNING name ', [name, id, groupId]);
+      const output = await pool.query(groupQueries.updateName, [name, id, groupId]);
       return res.status(200).json({
         status: 'successful',
         data: output.rows[0],
       });
     } catch (err) {
-      return res.status(500).json({
-        ststus: 500,
-        Error: 'server error',
-      });
+      return errorResponse(500, 'Server Error', res);
     }
   }
 
@@ -106,23 +73,17 @@ class groupController {
     const id = req.decoder;
     const groupId = req.params.id;
     try {
-      const response = await pool.query('select * from groups where (id = $1 AND roleid = $2)', [groupId, id]);
-      if (response.rows[0] === undefined) {
-        return res.status(404).json({
-          status: 404,
-          Error: 'Message does not exist',
-        });
+      const response = await pool.query(groupQueries.specificGroup, [groupId, id]);
+      if (!response.rows[0]) {
+        return errorResponse(404, 'Group Does Not Exist', res);
       }
-      await pool.query('Delete from groups where (id = $1 AND roleid = $2)', [groupId, id]);
+      await pool.query(groupQueries.deleteGroup, [groupId, id]);
       return res.status(200).json({
         status: 200,
         message: 'Delete Successful',
       });
     } catch (err) {
-      return res.status(500).json({
-        status: 500,
-        Error: 'Server Error',
-      });
+      return errorResponse(500, 'Server Error', res);
     }
   }
 
@@ -131,49 +92,36 @@ class groupController {
     const groupId = req.params.id;
     const { email } = req.body;
     try {
-      const response = await pool.query('select * from users where email = $1', [email]);
-      if (response.rows[0] === undefined) {
-        return res.status(404).json({
-          status: 404,
-          Error: 'User does not exist',
-        });
+      const respon = await pool.query(groupQueries.selectGroup, [adminId, groupId]);
+      if (!respon.rows[0]) {
+        return errorResponse(404, 'Group Does Not Exist', res);
+      }
+      const response = await pool.query(userQueries.getEmail, [email]);
+      if (!response.rows[0]) {
+        return errorResponse(400, 'User Does Not Exist', res);
       }
       const userId = response.rows[0].id;
-      const isExist = await pool.query('select * from members where user_id = $1 AND group_id = $2', [userId, groupId]);
-      if (isExist.rows[0] !== undefined) {
-        return res.status(404).json({
-          status: 404,
-          Error: 'Already a member',
-        });
+      const isExist = await pool.query(groupQueries.selectMember, [userId, groupId]);
+      if (isExist.rows[0]) {
+        const admin = isExist.rows[0].admin_id;
+        if (admin !== adminId) {
+          return errorResponse(400, 'Not an Admin of this Group', res);
+        }
+        return errorResponse(400, 'Already a Member', res);
       }
       if (userId === adminId) {
-        return res.status(404).json({
-          status: 404,
-          Error: 'Cannot add self',
-        });
+        return errorResponse(404, 'Cannot Add Self', res);
       }
       const userRole = 'member';
-      const addUser = {
-        text: `INSERT INTO members(
-              user_id,
-              group_id,
-              user_role,
-              admin_id
-          )VALUES($1,$2,$3, $4) RETURNING *`,
-        values: [userId, groupId, userRole, adminId],
-      };
-
-      const groupArray = await pool.query(addUser);
+      const addUser = [userId, groupId, userRole, adminId];
+      const groupArray = await pool.query(groupQueries.addUser, addUser);
       const { id } = groupArray.rows[0];
       return res.status(201).json({
         status: 201,
         data: { id, userId, userRole },
       });
     } catch (err) {
-      return res.status(500).json({
-        status: 500,
-        Error: 'Server Error',
-      });
+      return errorResponse(500, 'Server Error', res);
     }
   }
 
@@ -181,30 +129,21 @@ class groupController {
     const adminId = req.decoder;
     const { groupId, userId } = req.params;
     try {
-      const isExist = await pool.query('select * from users where id = $1', [userId]);
-      if (isExist.rows[0].id === undefined) {
-        return res.status(404).json({
-          status: 404,
-          Message: 'user does not exist',
-        });
+      const isExist = await pool.query(userQueries.getUser, [userId]);
+      if (!isExist.rows[0].id) {
+        return errorResponse(404, 'User Does not Exist', res);
       }
-      const response = await pool.query('select * from members where group_id = $1 AND user_id = $2 AND admin_id = $3', [groupId, userId, adminId]);
-      if (response.rows[0] === undefined) {
-        return res.status(404).json({
-          status: 404,
-          Message: 'user not found in group',
-        });
+      const response = await pool.query(groupQueries.selectUser, [groupId, userId, adminId]);
+      if (!response.rows[0]) {
+        return errorResponse(404, 'User Not Found in group', res);
       }
-      await pool.query('delete from members where group_id = $1 AND user_id = $2 AND admin_id = $3', [groupId, userId, adminId]);
+      await pool.query(groupQueries.deleteUser, [groupId, userId, adminId]);
       return res.status(200).json({
         status: 200,
         Message: 'Delete Successful',
       });
     } catch (err) {
-      return res.status(500).json({
-        status: 500,
-        Error: 'Server Error',
-      });
+      return errorResponse(500, 'Server Error', res);
     }
   }
 
@@ -213,12 +152,19 @@ class groupController {
     const id = req.decoder;
     const { groupId } = req.params;
     try {
-      const resp = await pool.query('select * from members where group_id = $1 AND user_id = $2 OR admin_id = $3', [groupId, id, id]);
-      if (!resp.rows[0]) { return res.status(404).json({ status: 404, Error: 'NOT A MEMBER OF THIS GROUP' }); }
-      const response = await pool.query('select user_id from members where group_id = $1', [groupId]);
-      if (!response.rows[0]) { return res.status(404).json({ status: 404, Error: 'NO GROUP MEMBER FOUND' }); }
+      const resp = await pool.query(groupQueries.checkMember, [groupId, id, id]);
+      if (!resp.rows[0]) {
+        return errorResponse(404, 'Not a Member of This Group', res);
+      }
+      const response = await pool.query(groupQueries.selectUserId, [groupId]);
+      if (!response.rows[0]) {
+        return errorResponse(404, 'No Group Member Found', res);
+      }
       const senderid = id;
       const status = 'unread';
+      const mess = [subject, message, 0, 0, status, senderid];
+      const messageArray = await pool.query(messageQueries.compose, mess);
+      const messageId = messageArray.rows[0].id;
       let collect = '';
       const index = response.rows.findIndex(add => add.user_id === id);
       let dataObj = [];
@@ -226,13 +172,14 @@ class groupController {
         for (let i = 0; i < response.rows.length; i += 1) {
           if (i !== index) {
             const messager = {
-              text: `INSERT INTO inbox(  
+              text: `INSERT INTO inbox(
+              message_id,  
               subject,
               message,
               parentmessageid,
               receiverid,
               status,
-              senderid)VALUES('${subject}', '${message}', ${id} ,${response.rows[i].user_id}, '${status}', ${senderid}) RETURNING *; `,
+              senderid)VALUES('${messageId}', '${subject}', '${message}', ${id} ,${response.rows[i].user_id}, '${status}', ${senderid}) RETURNING *; `,
             };
             collect += messager.text;
           }
@@ -242,26 +189,14 @@ class groupController {
           dataObj = datass.map(arrays => arrays.rows);
         } else dataObj = datass.rows;
       }
-      const sender = {
-        text: `INSERT INTO sent(  
-        subject,
-        message,
-        parentmessageid,
-        receiverid,
-        status,
-        senderid)VALUES($1, $2, $3, $4, $5, $6) RETURNING *`,
-        values: [subject, message, id, id, 'Sent', senderid],
-      };
-      const send = await pool.query(sender);
+      const sender = [messageId, subject, message, id, id, 'Sent', senderid];
+      const send = await pool.query(messageQueries.updateSent, sender);
       return res.status(200).json({
         data: dataObj,
         sender: send.rows,
       });
     } catch (err) {
-      return res.status(500).json({
-        status: 500,
-        Error: 'Server Error',
-      });
+      return errorResponse(500, 'Server Error', res);
     }
   }
 }

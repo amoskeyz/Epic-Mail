@@ -147,7 +147,7 @@ describe('Epic Test', () => {
         .get('/api/v2/messages/53')
         .set('authtoken', userToken)
         .end((err, res) => {
-          expect(res.statusCode).to.equal(404);
+          expect(res.statusCode).to.equal(400);
           done();
         });
     });
@@ -221,7 +221,7 @@ describe('Epic Test', () => {
         .get('/api/v2/groups')
         .set('authtoken', userToken)
         .end((err, res) => {
-          expect(res.statusCode).to.equal(404);
+          expect(res.statusCode).to.equal(400);
           done();
         });
     });
@@ -317,7 +317,7 @@ describe('Epic Test', () => {
         .set('authtoken', userToken)
         .send(group[3])
         .end((err, res) => {
-          expect(res.statusCode).to.equal(404);
+          expect(res.statusCode).to.equal(400);
           done();
         });
     });
