@@ -1,7 +1,10 @@
 import token from '../helper/token';
+import errorResponse from '../helper/errorResponse';
 import secure from '../helper/encrypt';
 import pool from '../config/config';
+import query from '../migration/query';
 
+const { userQueries } = query;
 
 class userController {
   static welcome(req, res) {
@@ -16,38 +19,22 @@ class userController {
     } = req.body;
     const passwordhash = secure.encrypt(password);
     try {
-      const output = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-      const returnemail = output.rows[0];
-      if (returnemail) {
-        return res.status(400).json({
-          status: '400',
-          data: 'User already exist',
-        });
+      const output = await pool.query(userQueries.getEmail, [email]);
+      if (output.rows[0]) {
+        return errorResponse(400, 'User already exist', res);
       }
-    } catch (err) {
-      return res.status(500).json({
-        status: 500,
-        error: 'Server Error',
+      const user = [firstname, lastname, email, phonenumber, passwordhash];
+      const userArray = await pool.query(userQueries.insertUser, user);
+      const { id } = userArray.rows[0];
+      return res.status(201).json({
+        status: 201,
+        data: {
+          firstname, lastname, email, phonenumber, token: token({ id }),
+        },
       });
+    } catch (err) {
+      return errorResponse(500, 'Server Error', res);
     }
-
-    const user = {
-      text: `INSERT INTO users(  
-      firstname,
-      lastname,
-      email,
-      phoneNumber,
-      password)VALUES($1, $2, $3, $4, $5) RETURNING *`,
-      values: [firstname, lastname, email, phonenumber, passwordhash],
-    };
-    const userArray = await pool.query(user);
-    const { id } = userArray.rows[0];
-    return res.status(201).json({
-      status: 201,
-      data: {
-        firstname, lastname, email, phonenumber, token: token({ id }),
-      },
-    });
   }
 
   static async signinUser(req, res) {
@@ -55,29 +42,20 @@ class userController {
       email, password,
     } = req.body;
     try {
-      const output = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+      const output = await pool.query(userQueries.getEmail, [email]);
       if (!output.rows[0]) {
-        return res.status(400).json({
-          status: '400',
-          error: 'Invalid User',
-        });
+        return errorResponse(400, 'Invalid User', res);
       }
       const passwordStat = secure.compare(password, output.rows[0].password);
       if (passwordStat) {
         const { id } = output.rows[0];
         return res.status(202).json({
-          status: '202',
+          status: 'Login Successful',
           data: { token: token({ id }) },
         });
-      } return res.status(400).json({
-        status: '400',
-        error: 'Incorrect Password',
-      });
+      } return errorResponse(400, 'Incorrect Password', res);
     } catch (err) {
-      return res.status(500).json({
-        status: 500,
-        error: 'Server Error',
-      });
+      return errorResponse(500, 'Server Error', res);
     }
   }
 }

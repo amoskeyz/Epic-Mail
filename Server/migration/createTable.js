@@ -136,7 +136,16 @@ async function create() {
     VALUES($1, $2, $3, $4, $5, $6)`,
     values: ['things to do in life', 'i have a very big ball', 1, 1, 1, 'unread'],
   };
-
+  const inbox = {
+    text: `INSERT INTO inbox (message_id, subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7)`,
+    values: [1, 'things to do in life', 'i have a very big ball', 3, 1, 1, 'unread'],
+  };
+  const sent = {
+    text: `INSERT INTO sent (message_id, subject, message, receiverid, senderid, parentmessageid, status) 
+    VALUES($1, $2, $3, $4, $5, $6, $7)`,
+    values: [4, 'things to do in life', 'i have a very big ball', 5, 3, 1, 'sent'],
+  };
   const group = {
     text: `INSERT INTO groups (name, roleid, role) 
     VALUES($1, $2, $3)`,
@@ -157,6 +166,8 @@ async function create() {
     await pool.query(messageSent6.text, messageSent6.values);
     await pool.query(messageSent7.text, messageSent7.values);
     await pool.query(group.text, group.values);
+    await pool.query(inbox.text, inbox.values);
+    await pool.query(sent.text, sent.values);
     console.log('Tables Successfully Created');
   } catch (error) {
     console.log(error);
